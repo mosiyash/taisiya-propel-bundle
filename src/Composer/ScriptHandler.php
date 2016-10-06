@@ -29,14 +29,14 @@ class ScriptHandler extends CoreScriptHandler
 
     public static function createSchemaFile(Event $event): void
     {
-    	$database = DatabaseFactory::create(DefaultDatabase::class)
-		    ->addTable(
-		    	TableFactory::create(AccountTable::class)
-		            ->addCol
-		    );
+        $database = DatabaseFactory::create(DefaultDatabase::class)
+            ->addTable(
+                TableFactory::create(AccountTable::class)
+                    ->addCol
+            );
 
 
-    	$schema = new Schema();
-		$schema->addDatabase($defaultDatabase);
+        $schema = new Schema();
+        $schema->addDatabase($defaultDatabase);
     }
 }
