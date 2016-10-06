@@ -34,7 +34,7 @@ class ScriptHandler extends CoreScriptHandler
             ->addTable(
                 TableFactory::create(AccountTable::class)
                     ->addColumn(
-                    	ColumnFactory::create(AccountTable\IdColumn::class)
+                        ColumnFactory::create(AccountTable\IdColumn::class)
                     )
             );
 
