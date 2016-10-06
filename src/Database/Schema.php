@@ -11,15 +11,18 @@ final class Schema
 
     /**
      * @param DatabaseInterface $database
+     * @return self
      * @throws \InvalidArgumentException
      */
-    public function addDatabase(DatabaseInterface $database)
+    public function addDatabase(DatabaseInterface $database): self
     {
         if (array_key_exists($database->getName(), $this->databases)) {
             throw new \InvalidArgumentException('Database '.$database->getName().' already added');
         }
 
         $this->databases[$database->getName()] = $database;
+
+        return $this;
     }
 
     /**

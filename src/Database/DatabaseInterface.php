@@ -5,6 +5,12 @@ namespace Taisiya\PropelBundle\Database;
 interface DatabaseInterface
 {
     /**
+     * DatabaseInterface constructor.
+     * @param string $defaultIdMethod
+     */
+    public function __construct(string $defaultIdMethod = AbstractDatabase::DEFAULT_ID_METHOD_NATIVE);
+
+    /**
      * The database name.
      *
      * @return string

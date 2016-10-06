@@ -4,6 +4,9 @@ namespace Taisiya\PropelBundle\Database;
 
 abstract class AbstractDatabase implements DatabaseInterface
 {
+    const DEFAULT_ID_METHOD_NATIVE = 'native';
+    const DEFAULT_ID_METHOD_NONE = 'none';
+
     /**
      * @var string
      */
@@ -14,9 +17,14 @@ abstract class AbstractDatabase implements DatabaseInterface
      */
     private $tables = [];
 
-    final public function __construct(string $defaultIdMethod = 'native')
+    /**
+     * AbstractDatabase constructor.
+     * @param string $defaultIdMethod
+     * @throws \InvalidArgumentException
+     */
+    final public function __construct(string $defaultIdMethod = self::DEFAULT_ID_METHOD_NATIVE)
     {
-        if (in_array($defaultIdMethod, ['native', 'none'])) {
+        if (in_array($defaultIdMethod, [self::DEFAULT_ID_METHOD_NATIVE, self::DEFAULT_ID_METHOD_NONE])) {
             throw new \InvalidArgumentException('Incorrect value for defaultIdValue');
         }
 

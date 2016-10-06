@@ -8,7 +8,7 @@ use Taisiya\PropelBundle\Database\AccountTable;
 use Taisiya\PropelBundle\Database\ColumnFactory;
 use Taisiya\PropelBundle\Database\DatabaseFactory;
 use Taisiya\PropelBundle\Database\DefaultDatabase;
-use Taisiya\PropelBundle\Database\Schema;
+use Taisiya\PropelBundle\Database\SchemaFactory;
 use Taisiya\PropelBundle\Database\TableFactory;
 
 defined('ROOT_DIR') || define('ROOT_DIR', dirname(dirname(__DIR__)));
@@ -36,16 +36,17 @@ class ScriptHandler extends CoreScriptHandler
 	 */
     public static function createSchemaFile(Event $event): void
     {
-        $database = DatabaseFactory::create(DefaultDatabase::class)
-            ->addTable(
-                TableFactory::create(AccountTable::class)
-                    ->addColumn(
-                        ColumnFactory::create(AccountTable\IdColumn::class)
-                    )
-            );
+	    $schema = SchemaFactory::create()
+		    ->addDatabase(
+			    DatabaseFactory::create(DefaultDatabase::class)
+				    ->addTable(
+					    TableFactory::create(AccountTable::class)
+						    ->addColumn(
+							    ColumnFactory::create(AccountTable\IdColumn::class)
+						    )
+				    )
+		    );
 
-
-        $schema = new Schema();
-        $schema->addDatabase($database);
+	    exit(var_dump($schema));
     }
 }

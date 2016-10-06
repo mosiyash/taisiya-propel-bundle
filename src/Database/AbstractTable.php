@@ -4,10 +4,13 @@ namespace Taisiya\PropelBundle\Database;
 
 abstract class AbstractTable implements TableInterface
 {
+    const ID_METHOD_NATIVE = 'native';
+    const ID_METHOD_NONE = 'none';
+
     /**
      * @var string
      */
-    private $idMethod;
+    private $idMethod = self::ID_METHOD_NATIVE;
 
     /**
      * @var string
@@ -34,7 +37,7 @@ abstract class AbstractTable implements TableInterface
      */
     final public function setIdMethod(string $idMethod): TableInterface
     {
-        if (!in_array($idMethod, ['native', 'none'])) {
+        if (!in_array($idMethod, [self::ID_METHOD_NATIVE, self::ID_METHOD_NONE])) {
             throw new \InvalidArgumentException('Invalid idMethod value');
         }
 
