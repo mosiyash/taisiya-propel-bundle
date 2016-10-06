@@ -9,7 +9,7 @@ defined('ROOT_DIR') || define('ROOT_DIR', dirname(dirname(__DIR__)));
 
 class ScriptHandler extends CoreScriptHandler
 {
-    public static function generateXMLSchema(Event $event): void
+    public static function createPropelConfigFile(Event $event): void
     {
         $settings = require ROOT_DIR.'/app/config/settings.php';
 

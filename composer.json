@@ -26,13 +26,12 @@
     "post-install-cmd": [
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::copySettings",
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::mergeSettings",
-      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::createPhinxConfigFile",
-      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::generateXMLSchema"
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::createPropelConfigFile"
     ],
     "post-update-cmd": [
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::copySettings",
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::mergeSettings",
-      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::generateXMLSchema"
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::createPropelConfigFile"
     ]
   }
 }
