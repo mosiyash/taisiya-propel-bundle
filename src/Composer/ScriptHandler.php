@@ -5,6 +5,7 @@ namespace Taisiya\PropelBundle\Composer;
 use Composer\Script\Event;
 use Taisiya\CoreBundle\Composer\ScriptHandler as CoreScriptHandler;
 use Taisiya\PropelBundle\Database\AccountTable;
+use Taisiya\PropelBundle\Database\ColumnFactory;
 use Taisiya\PropelBundle\Database\DatabaseFactory;
 use Taisiya\PropelBundle\Database\DefaultDatabase;
 use Taisiya\PropelBundle\Database\Schema;
@@ -32,11 +33,13 @@ class ScriptHandler extends CoreScriptHandler
         $database = DatabaseFactory::create(DefaultDatabase::class)
             ->addTable(
                 TableFactory::create(AccountTable::class)
-                    ->addCol
+                    ->addColumn(
+                    	ColumnFactory::create(AccountTable\IdColumn::class)
+                    )
             );
 
 
         $schema = new Schema();
-        $schema->addDatabase($defaultDatabase);
+        $schema->addDatabase($database);
     }
 }
