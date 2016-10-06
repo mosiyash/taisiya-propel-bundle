@@ -15,6 +15,9 @@ defined('ROOT_DIR') || define('ROOT_DIR', dirname(dirname(__DIR__)));
 
 class ScriptHandler extends CoreScriptHandler
 {
+	/**
+	 * @param Event $event
+	 */
     public static function createPropelConfigFile(Event $event): void
     {
         $settings = require ROOT_DIR.'/app/config/settings.php';
@@ -28,6 +31,9 @@ class ScriptHandler extends CoreScriptHandler
         }
     }
 
+	/**
+	 * @param Event $event
+	 */
     public static function createSchemaFile(Event $event): void
     {
         $database = DatabaseFactory::create(DefaultDatabase::class)
