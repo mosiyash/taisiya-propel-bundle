@@ -1,0 +1,38 @@
+{
+  "name": "taisiya/propel-bundle",
+  "license": "MIT",
+  "type": "taisiya-bundle",
+  "description": "The \"Propel Bundle\".",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Taisiya\\PropelBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Taisiya\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "taisiya/core-bundle": "dev-master",
+    "propel/propel": "^2.0"
+  },
+  "require-dev": {
+    "composer/composer": "*"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::copySettings",
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::mergeSettings",
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::createPhinxConfigFile",
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::generateXMLSchema"
+    ],
+    "post-update-cmd": [
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::copySettings",
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::mergeSettings",
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::generateXMLSchema"
+    ]
+  }
+}
