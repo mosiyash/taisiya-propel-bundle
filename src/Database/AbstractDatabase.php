@@ -24,7 +24,7 @@ abstract class AbstractDatabase implements DatabaseInterface
      */
     final public function __construct(string $defaultIdMethod = self::DEFAULT_ID_METHOD_NATIVE)
     {
-        if (in_array($defaultIdMethod, [self::DEFAULT_ID_METHOD_NATIVE, self::DEFAULT_ID_METHOD_NONE])) {
+        if (!in_array($defaultIdMethod, [self::DEFAULT_ID_METHOD_NATIVE, self::DEFAULT_ID_METHOD_NONE])) {
             throw new \InvalidArgumentException('Incorrect value for defaultIdValue');
         }
 
