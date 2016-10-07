@@ -26,13 +26,13 @@
     "post-install-cmd": [
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::copySettings",
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::mergeSettings",
-      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::createPropelConfigFile"
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::buildPropelSchema"
     ],
     "post-update-cmd": [
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::copySettings",
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::mergeSettings",
       "Taisiya\\PropelBundle\\Composer\\ScriptHandler::createPropelConfigFile",
-      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::createSchemaFile"
+      "Taisiya\\PropelBundle\\Composer\\ScriptHandler::buildPropelSchema"
     ]
   }
 }

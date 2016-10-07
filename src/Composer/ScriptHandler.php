@@ -2,8 +2,9 @@
 
 namespace Taisiya\PropelBundle\Composer;
 
-use Composer\Script\Event;
+use Composer\EventDispatcher\Event;
 use Taisiya\CoreBundle\Composer\ScriptHandler as CoreScriptHandler;
+use Taisiya\PropelBundle\Composer\Event\BuildPropelSchemaSubscriber;
 use Taisiya\PropelBundle\Database\AccountTable;
 use Taisiya\PropelBundle\Database\ColumnFactory;
 use Taisiya\PropelBundle\Database\DatabaseFactory;
@@ -15,6 +16,8 @@ defined('TAISIYA_ROOT') || define('TAISIYA_ROOT', dirname(dirname(__DIR__)));
 
 class ScriptHandler extends CoreScriptHandler
 {
+    const EVENT_BUILD_PROPEL_SCHEMA = 'composer.build_propel_schema';
+
     /**
      * @param Event $event
      */
@@ -34,7 +37,7 @@ class ScriptHandler extends CoreScriptHandler
     /**
      * @param Event $event
      */
-    public static function createSchemaFile(Event $event): void
+    public static function buildPropelSchema(Event $event): void
     {
         $schema = SchemaFactory::create()
             ->addDatabase(
@@ -47,6 +50,9 @@ class ScriptHandler extends CoreScriptHandler
                     )
             );
 
-        exit(var_dump($schema));
+        $buildPropelSchemaEvent = new Event(self::EVENT_BUILD_PROPEL_SCHEMA, ['schema' => $schema]);
+
+        $event->getComposer()->getEventDispatcher()->addSubscriber(new BuildPropelSchemaSubscriber());
+        $event->getComposer()->getEventDispatcher()->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
     }
 }
