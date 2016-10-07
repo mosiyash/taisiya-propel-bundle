@@ -3,6 +3,9 @@
 namespace Taisiya\PropelBundle\Composer;
 
 use Composer\EventDispatcher\Event;
+use PhpParser\NodeTraverser;
+use PhpParser\ParserFactory;
+use Symfony\Component\Finder\Finder;
 use Taisiya\CoreBundle\Composer\ScriptHandler as CoreScriptHandler;
 use Taisiya\PropelBundle\Composer\Event\BuildPropelSchemaSubscriber;
 use Taisiya\PropelBundle\Database\AccountTable;
@@ -39,20 +42,24 @@ class ScriptHandler extends CoreScriptHandler
      */
     public static function buildPropelSchema(Event $event): void
     {
-        $schema = SchemaFactory::create()
-            ->addDatabase(
-                DatabaseFactory::create(DefaultDatabase::class)
-                    ->addTable(
-                        TableFactory::create(AccountTable::class)
-                            ->addColumn(
-                                ColumnFactory::create(AccountTable\IdColumn::class)
-                            )
-                    )
-            );
-
+        $dispatcher = $event->getComposer()->getEventDispatcher();
+        $schema = SchemaFactory::create()->addDatabase(DatabaseFactory::create(DefaultDatabase::class));
         $buildPropelSchemaEvent = new Event(self::EVENT_BUILD_PROPEL_SCHEMA, ['schema' => $schema]);
 
-        $event->getComposer()->getEventDispatcher()->addSubscriber(new BuildPropelSchemaSubscriber());
-        $event->getComposer()->getEventDispatcher()->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
+        $finder = (new Finder())
+            ->in([TAISIYA_ROOT.'/vendor', TAISIYA_ROOT.'/src'])
+            ->name('BuildPropelSchemaSubscriber.php');
+
+        foreach ($finder as $file) {
+            $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
+            $traverser = new NodeTraverser();
+            $stmts = $parser->parse(file_get_contents($file->getPathname()));
+
+        }
+        exit(print_r($files));
+
+        // $dispatcher->addSubscriber(new BuildPropelSchemaSubscriber());
+
+        $dispatcher->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
     }
 }
