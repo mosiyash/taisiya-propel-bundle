@@ -62,11 +62,11 @@ abstract class AbstractDatabase implements DatabaseInterface
      */
     public function getTable(string $name): TableInterface
     {
-        if (!array_key_exists($name, $this->databases)) {
+        if (!array_key_exists($name, $this->tables)) {
             throw new \InvalidArgumentException('Table '.$name.' not added');
         }
 
-        return $this->databases[$name];
+        return $this->tables[$name];
     }
 
     /**
