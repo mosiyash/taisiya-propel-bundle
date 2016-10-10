@@ -92,9 +92,38 @@ final class Schema
         foreach ($database->getTables() as $table) {
             $tableElement = $dom->createElement('table');
             $tableElement->setAttribute('name', $table->getName());
-            if ($table->getIdMethod() !== null) {
-                $tableElement->setAttribute('idMethod', $table->getIdMethod());
+
+            $additionalProperties = [
+                'idMethod',
+                'phpName',
+                'package',
+                'schema',
+                'namespace',
+                'skipSql',
+                'abstract',
+                'phpNamingMethod',
+                'baseClass',
+                'description',
+                'heavyIndexing',
+                'identifierQuoting',
+                'readOnly',
+                'treeMode',
+                'reloadOnInsert',
+                'reloadOnUpdate',
+                'allowPkInsert',
+            ];
+
+            foreach ($additionalProperties as $propertyName) {
+                $method = method_exists($table, 'get'.ucfirst($propertyName))
+                    ? 'get'.ucfirst($propertyName)
+                    : 'is'.ucfirst($propertyName);
+
+                $propertyValue = $table->{$method}();
+                if ($propertyValue != '') {
+                    $tableElement->setAttribute($propertyName, $propertyValue);
+                }
             }
+
             $databaseElement->appendChild($tableElement);
         }
 
