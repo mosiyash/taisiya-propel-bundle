@@ -68,8 +68,9 @@ class ScriptHandler extends CoreScriptHandler
             }
 
             $fullClassName = implode('\\', $namespace->name->parts).'\\'.$class->name;
-            // $fullClassName::buildPropelSchema($buildPropelSchemaEvent);
             $dispatcher->addSubscriber(new $fullClassName());
+
+            $event->getIO()->write('  - added subscriber '.$fullClassName);
         }
 
         $dispatcher->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
