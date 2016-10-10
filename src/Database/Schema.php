@@ -65,6 +65,7 @@ final class Schema
         $database = $this->getDatabase(DefaultDatabase::NAME);
 
         $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true;
 
         $databaseElement = $dom->createElement('database');
         $databaseElement->setAttribute('name', $database->getName());
