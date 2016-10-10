@@ -162,7 +162,7 @@ final class Schema
                 ];
 
                 foreach ($additionalProperties as $propertyName) {
-                    $method = method_exists($table, 'get'.ucfirst($propertyName))
+                    $method = method_exists($column, 'get'.ucfirst($propertyName))
                         ? 'get'.ucfirst($propertyName)
                         : 'is'.ucfirst($propertyName);
 
