@@ -12,6 +12,8 @@ interface DatabaseInterface
 
     public function getTable(string $name): TableInterface;
 
+    public function hasTable(string $name): bool;
+
     public function getTables(): array;
 
     public function getPackage(): ?string;

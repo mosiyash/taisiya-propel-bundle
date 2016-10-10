@@ -16,6 +16,8 @@ interface TableInterface
 
     public function getColumn(string $name): ColumnInterface;
 
+    public function hasColumn(string $name): bool;
+
     public function getColumns(): array;
 
     public function getPackage(): ?string;
