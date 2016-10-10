@@ -14,6 +14,8 @@ interface TableInterface
 
     public function addColumn(ColumnInterface $column): self;
 
+    public function addColumnIfNotExists(ColumnInterface $column): self;
+
     public function getColumn(string $name): ColumnInterface;
 
     public function hasColumn(string $name): bool;

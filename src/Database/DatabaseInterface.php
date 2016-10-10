@@ -12,6 +12,8 @@ interface DatabaseInterface
 
     public function addTable(TableInterface $table): self;
 
+    public function addTableIfNotExists(TableInterface $table): self;
+
     public function getTable(string $name): TableInterface;
 
     public function hasTable(string $name): bool;

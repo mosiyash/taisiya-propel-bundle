@@ -2,6 +2,8 @@
 
 namespace Taisiya\PropelBundle\Database;
 
+use Phinx\Db\Table\Column;
+
 abstract class AbstractTable implements TableInterface
 {
     const TREE_MODE_NESTED_SET = 'nested_set';
@@ -190,11 +192,24 @@ abstract class AbstractTable implements TableInterface
      */
     public function addColumn(ColumnInterface $column): TableInterface
     {
-        if (array_key_exists($column->getName(), $this->columns)) {
+        if ($this->hasColumn($column->getName())) {
             throw new \InvalidArgumentException('Column '.$column->getName().' already added');
         }
 
         $this->columns[$column->getName()] = $column;
+
+        return $this;
+    }
+
+    /**
+     * @param ColumnInterface $column
+     * @return TableInterface
+     */
+    public function addColumnIfNotExists(ColumnInterface $column): TableInterface
+    {
+        if (!$this->hasColumn($column->getName())) {
+            $this->addColumn($column);
+        }
 
         return $this;
     }

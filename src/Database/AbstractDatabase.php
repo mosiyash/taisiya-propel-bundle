@@ -106,11 +106,24 @@ abstract class AbstractDatabase implements DatabaseInterface
      */
     public function addTable(TableInterface $table): Databaseinterface
     {
-        if (array_key_exists($table->getName(), $this->tables)) {
+        if ($this->hasTable($table->getName())) {
             throw new \InvalidArgumentException('Table '.$table->getName().' already added');
         }
 
         $this->tables[$table->getName()] = $table;
+
+        return $this;
+    }
+
+    /**
+     * @param TableInterface $table
+     * @return DatabaseInterface
+     */
+    public function addTableIfNotExists(TableInterface $table): DatabaseInterface
+    {
+        if (!$this->hasTable($table->getName())) {
+            $this->addTable($table);
+        }
 
         return $this;
     }
