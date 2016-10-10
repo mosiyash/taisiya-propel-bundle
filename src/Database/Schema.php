@@ -133,6 +133,14 @@ final class Schema
                     }
                     $tableElement->setAttribute($propertyName, $propertyValue);
                 }
+
+                /** @var ColumnInterface $column */
+                foreach ($table->getColumns() as $column) {
+                    $columnElement = $dom->createElement('column');
+                    $columnElement->setAttribute('name', $column->getName());
+
+                    $tableElement->appendChild($columnElement);
+                }
             }
 
             $databaseElement->appendChild($tableElement);

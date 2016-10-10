@@ -4,6 +4,8 @@ namespace Taisiya\PropelBundle\Database;
 
 interface ColumnInterface
 {
+    public function getName(): string;
+
     public function getPhpName() : ?string;
 
     public function setPhpName(string $phpName = null) : ColumnInterface;
