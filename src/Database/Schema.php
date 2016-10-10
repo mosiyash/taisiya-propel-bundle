@@ -40,6 +40,15 @@ final class Schema
     }
 
     /**
+     * @param string $name
+     * @return bool
+     */
+    final public function hasDatabase(string $name): bool
+    {
+        return array_key_exists($name, $this->databases);
+    }
+
+    /**
      * @return array
      */
     final public function getDatabases(): array

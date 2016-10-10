@@ -70,6 +70,15 @@ abstract class AbstractDatabase implements DatabaseInterface
     }
 
     /**
+     * @param string $name
+     * @return bool
+     */
+    public function hasTable(string $name): bool
+    {
+        return array_key_exists($name, $this->tables);
+    }
+
+    /**
      * @return array
      */
     public function getTables(): array

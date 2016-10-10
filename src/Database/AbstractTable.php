@@ -93,6 +93,15 @@ abstract class AbstractTable implements TableInterface
     }
 
     /**
+     * @param string $name
+     * @return bool
+     */
+    public function hasColumn(string $name): bool
+    {
+        return array_key_exists($name, $this->columns);
+    }
+
+    /**
      * @return array
      */
     public function getColumns(): array
