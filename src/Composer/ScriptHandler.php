@@ -70,7 +70,7 @@ class ScriptHandler extends CoreScriptHandler
             $fullClassName = implode('\\', $namespace->name->parts).'\\'.$class->name;
             $dispatcher->addSubscriber(new $fullClassName());
 
-            $event->getIO()->write('  - added subscriber '.$fullClassName);
+            $event->getIO()->write('  - added subscriber <info>'.$fullClassName.'</info>');
         }
 
         $dispatcher->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
@@ -78,7 +78,7 @@ class ScriptHandler extends CoreScriptHandler
         if (!$schema->writeToFile()) {
             throw new \RuntimeException('Couldn\'t save schema to '.TAISIYA_ROOT.'/schema.xml');
         } else {
-            $event->getIO()->write('  - <info>saved</info> schema to '.TAISIYA_ROOT.'/schema.xml');
+            $event->getIO()->write('  - saved schema to <info>'.TAISIYA_ROOT.'/schema.xml</info>');
         }
     }
 
