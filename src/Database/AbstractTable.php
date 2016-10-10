@@ -19,7 +19,8 @@ abstract class AbstractTable implements TableInterface
     private $idMethod = AbstractDatabase::ID_METHOD_NATIVE;
 
     /**
-     * Object model class name. By default, Propel uses a CamelCase version of the table name as phpName.
+     * Object model class name. By default,
+     * Propel uses a CamelCase version of the table name as phpName.
      * @var string|null
      */
     private $phpName = null;
