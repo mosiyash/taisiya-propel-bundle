@@ -84,6 +84,9 @@ final class Schema
 
             $propertyValue = $database->{$method}();
             if ($propertyValue != '') {
+                if (is_bool($propertyValue)) {
+                    $propertyValue = $propertyValue ? 'true' : false;
+                }
                 $databaseElement->setAttribute($propertyName, $propertyValue);
             }
         }
@@ -120,6 +123,9 @@ final class Schema
 
                 $propertyValue = $table->{$method}();
                 if ($propertyValue != '') {
+                    if (is_bool($propertyValue)) {
+                        $propertyValue = $propertyValue ? 'true' : false;
+                    }
                     $tableElement->setAttribute($propertyName, $propertyValue);
                 }
             }
