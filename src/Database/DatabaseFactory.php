@@ -10,7 +10,7 @@ final class DatabaseFactory
      * @return DatabaseInterface
      * @throws \InvalidArgumentException
      */
-    public static function create($databaseClass, string $defaultIdMethod = AbstractDatabase::DEFAULT_ID_METHOD_NATIVE): DatabaseInterface
+    public static function create($databaseClass, string $defaultIdMethod = AbstractDatabase::ID_METHOD_NATIVE): DatabaseInterface
     {
         $obj = new $databaseClass($defaultIdMethod);
 
