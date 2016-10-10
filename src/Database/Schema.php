@@ -133,14 +133,49 @@ final class Schema
                     }
                     $tableElement->setAttribute($propertyName, $propertyValue);
                 }
+            }
 
-                /** @var ColumnInterface $column */
-                foreach ($table->getColumns() as $column) {
-                    $columnElement = $dom->createElement('column');
-                    $columnElement->setAttribute('name', $column->getName());
+            /** @var ColumnInterface $column */
+            foreach ($table->getColumns() as $column) {
+                $columnElement = $dom->createElement('column');
+                $columnElement->setAttribute('name', $column->getName());
 
-                    $tableElement->appendChild($columnElement);
+                $additionalProperties = [
+                    'phpName',
+                    'tableMapName',
+                    'primaryKey',
+                    'required',
+                    'type',
+                    'phpType',
+                    'sqlType',
+                    'size',
+                    'scale',
+                    'defaultValue',
+                    'defaultExpr',
+                    'valueSet',
+                    'autoIncrement',
+                    'lazyLoad',
+                    'description',
+                    'primaryString',
+                    'phpNamingMethod',
+                    'inheritance',
+                ];
+
+                foreach ($additionalProperties as $propertyName) {
+                    $method = method_exists($table, 'get'.ucfirst($propertyName))
+                        ? 'get'.ucfirst($propertyName)
+                        : 'is'.ucfirst($propertyName);
+
+                    $propertyValue = $column->{$method}();
+                    if ($propertyValue != '') {
+                        if (is_bool($propertyValue)) {
+                            $propertyValue = $propertyValue ? 'true' : false;
+                        }
+                        $columnElement->setAttribute($propertyName, $propertyValue);
+                    }
                 }
+
+                $tableElement->appendChild($columnElement);
             }
 
             $databaseElement->appendChild($tableElement);
