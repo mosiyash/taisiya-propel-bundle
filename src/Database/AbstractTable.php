@@ -205,11 +205,11 @@ abstract class AbstractTable implements TableInterface
      */
     public function getColumn(string $name): ColumnInterface
     {
-        if (!array_key_exists($name, $this->tables)) {
+        if (!array_key_exists($name, $this->columns)) {
             throw new \InvalidArgumentException('Column '.$name.' not added');
         }
 
-        return $this->tables[$name];
+        return $this->columns[$name];
     }
 
     /**
@@ -226,7 +226,7 @@ abstract class AbstractTable implements TableInterface
      */
     public function getColumns(): array
     {
-        return $this->tables;
+        return $this->columns;
     }
 
     /**
