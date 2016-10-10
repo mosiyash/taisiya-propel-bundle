@@ -3,17 +3,14 @@
 namespace Taisiya\PropelBundle\Composer;
 
 use Composer\EventDispatcher\Event;
-use PhpParser\NodeTraverser;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\ParserFactory;
 use Symfony\Component\Finder\Finder;
 use Taisiya\CoreBundle\Composer\ScriptHandler as CoreScriptHandler;
-use Taisiya\PropelBundle\Composer\Event\BuildPropelSchemaSubscriber;
-use Taisiya\PropelBundle\Database\AccountTable;
-use Taisiya\PropelBundle\Database\ColumnFactory;
 use Taisiya\PropelBundle\Database\DatabaseFactory;
 use Taisiya\PropelBundle\Database\DefaultDatabase;
 use Taisiya\PropelBundle\Database\SchemaFactory;
-use Taisiya\PropelBundle\Database\TableFactory;
 
 defined('TAISIYA_ROOT') || define('TAISIYA_ROOT', dirname(dirname(__DIR__)));
 
@@ -52,14 +49,44 @@ class ScriptHandler extends CoreScriptHandler
 
         foreach ($finder as $file) {
             $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
-            $traverser = new NodeTraverser();
+
             $stmts = $parser->parse(file_get_contents($file->getPathname()));
+            if ($stmts === null) {
+                continue;
+            }
 
+            /** @var Namespace_ $namespace */
+            $namespace = self::findNodeByInstanceType($stmts, Namespace_::class);
+            if ($namespace === null) {
+                continue;
+            }
+
+            /** @var Node\Stmt\Class_ $class */
+            $class = self::findNodeByInstanceType($namespace->stmts, Node\Stmt\Class_::class);
+            if ($class->name !== 'BuildPropelSchemaSubscriber') {
+                continue;
+            }
+
+            $fullClassName = implode('\\', $namespace->name->parts).'\\'.$class->name;
+            // $fullClassName::buildPropelSchema($buildPropelSchemaEvent);
+            $dispatcher->addSubscriber(new $fullClassName());
         }
-        exit(print_r($files));
-
-        // $dispatcher->addSubscriber(new BuildPropelSchemaSubscriber());
 
         $dispatcher->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
+    }
+
+    /**
+     * @param array $stmts
+     * @param string $classname
+     * @return Node|null
+     */
+    private static function findNodeByInstanceType(array $stmts, $classname)
+    {
+        foreach ($stmts as $node) {
+            if ($node instanceof $classname) {
+                return $node;
+            }
+        }
+        return null;
     }
 }
