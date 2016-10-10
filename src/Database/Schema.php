@@ -56,6 +56,9 @@ final class Schema
         return $this->databases;
     }
 
+    /**
+     * Writes schema to xml file.
+     */
     final public function writeToFile()
     {
         $database = $this->getDatabase(DefaultDatabase::NAME);
