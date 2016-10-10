@@ -74,7 +74,7 @@ abstract class AbstractDatabase implements DatabaseInterface
      * Prefix to all the SQL table names.
      * @var string|null
      */
-    private $prefix = null;
+    private $tablePrefix = null;
 
     /**
      * AbstractDatabase constructor.
@@ -294,18 +294,18 @@ abstract class AbstractDatabase implements DatabaseInterface
     /**
      * @return null|string
      */
-    public function getPrefix(): ?string
+    public function getTablePrefix(): ?string
     {
-        return $this->prefix;
+        return $this->tablePrefix;
     }
 
     /**
-     * @param null|string $prefix
+     * @param null|string $tablePrefix
      * @return DatabaseInterface
      */
-    public function setPrefix(string $prefix = null): DatabaseInterface
+    public function setTablePrefix(string $tablePrefix = null): DatabaseInterface
     {
-        $this->prefix = $prefix;
+        $this->tablePrefix = $tablePrefix;
 
         return $this;
     }

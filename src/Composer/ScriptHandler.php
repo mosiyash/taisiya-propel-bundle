@@ -74,6 +74,8 @@ class ScriptHandler extends CoreScriptHandler
         }
 
         $dispatcher->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
+
+        $schema->writeToFile();
     }
 
     /**

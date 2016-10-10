@@ -55,4 +55,51 @@ final class Schema
     {
         return $this->databases;
     }
+
+    final public function writeToFile()
+    {
+        $database = $this->getDatabase(DefaultDatabase::NAME);
+
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+
+        $databaseElement = $dom->createElement('database');
+        $databaseElement->setAttribute('name', $database->getName());
+        $databaseElement->setAttribute('defaultIdMethod', $database->getDefaultIdMethod());
+
+        $additionalProperties = [
+            'package',
+            'schema',
+            'namespace',
+            'baseClass',
+            'defaultPhpNamingMethod',
+            'heavyIndexing',
+            'identifierQuoting',
+            'tablePrefix',
+        ];
+
+        foreach ($additionalProperties as $propertyName) {
+            $method = method_exists($database, 'get'.ucfirst($propertyName))
+                ? 'get'.ucfirst($propertyName)
+                : 'is'.ucfirst($propertyName);
+
+            $propertyValue = $database->{$method}();
+            if ($propertyValue != '') {
+                $databaseElement->setAttribute($propertyName, $propertyValue);
+            }
+        }
+
+        /** @var TableInterface $table */
+        foreach ($database->getTables() as $table) {
+            $tableElement = $dom->createElement('table');
+            $tableElement->setAttribute('name', $table->getName());
+            if ($table->getIdMethod() !== null) {
+                $tableElement->setAttribute('idMethod', $table->getIdMethod());
+            }
+            $databaseElement->appendChild($tableElement);
+        }
+
+        $dom->appendChild($databaseElement);
+
+        $dom->save(TAISIYA_ROOT.'/schema.xml');
+    }
 }

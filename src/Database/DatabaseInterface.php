@@ -8,6 +8,8 @@ interface DatabaseInterface
 
     public function getName(): string;
 
+    public function getDefaultIdMethod(): string;
+
     public function addTable(TableInterface $table): self;
 
     public function getTable(string $name): TableInterface;
@@ -44,7 +46,7 @@ interface DatabaseInterface
 
     public function setIdentifierQuoting(bool $identifierQuoting): DatabaseInterface;
 
-    public function getPrefix(): ?string;
+    public function getTablePrefix(): ?string;
 
-    public function setPrefix(string $prefix = null): DatabaseInterface;
+    public function setTablePrefix(string $tablePrefix = null): DatabaseInterface;
 }

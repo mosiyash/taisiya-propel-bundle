@@ -12,4 +12,5 @@ npm-debug.log
 /pimple.json
 /phinx.*
 /propel.*
+/schema.*
 /vendor
