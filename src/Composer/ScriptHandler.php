@@ -75,7 +75,11 @@ class ScriptHandler extends CoreScriptHandler
 
         $dispatcher->dispatch(self::EVENT_BUILD_PROPEL_SCHEMA, $buildPropelSchemaEvent);
 
-        $schema->writeToFile();
+        if (!$schema->writeToFile()) {
+            throw new \RuntimeException('Couldn\'t save schema to '.TAISIYA_ROOT.'/schema.xml');
+        } else {
+            $event->getIO()->write('  - <info>saved</info> schema to '.TAISIYA_ROOT.'/schema.xml');
+        }
     }
 
     /**

@@ -58,6 +58,7 @@ final class Schema
 
     /**
      * Writes schema to xml file.
+     * @return int the number of bytes written or false if an error occurred.
      */
     final public function writeToFile()
     {
@@ -138,6 +139,6 @@ final class Schema
 
         $dom->appendChild($databaseElement);
 
-        $dom->save(TAISIYA_ROOT.'/schema.xml');
+        return $dom->save(TAISIYA_ROOT.'/schema.xml');
     }
 }
