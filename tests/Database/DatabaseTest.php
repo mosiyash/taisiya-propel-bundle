@@ -2,7 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-class DatabaseTest extends \PHPUnit_Framework_TestCase
+use Taisiya\PropelBundle\PHPUnitTestCase;
+
+class DatabaseTest extends PHPUnitTestCase
 {
     /**
      * @return Database

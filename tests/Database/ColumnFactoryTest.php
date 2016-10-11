@@ -2,7 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-class ColumnFactoryTest extends \PHPUnit_Framework_TestCase
+use Taisiya\PropelBundle\PHPUnitTestCase;
+
+class ColumnFactoryTest extends PHPUnitTestCase
 {
     /**
      * @covers ColumnFactory::create()

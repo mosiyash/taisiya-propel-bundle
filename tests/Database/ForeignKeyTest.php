@@ -4,8 +4,9 @@ namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\ExampleForeignTable\ForeignIdColumn;
 use Taisiya\PropelBundle\Database\ExampleTable\IdColumn;
+use Taisiya\PropelBundle\PHPUnitTestCase;
 
-class ForeignKeyTest extends \PHPUnit_Framework_TestCase
+class ForeignKeyTest extends PHPUnitTestCase
 {
     /**
      * @covers ForeignKey::getForeignTable()

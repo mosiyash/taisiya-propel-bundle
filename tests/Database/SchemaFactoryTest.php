@@ -2,7 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-class SchemaFactoryTest extends \PHPUnit_Framework_TestCase
+use Taisiya\PropelBundle\PHPUnitTestCase;
+
+class SchemaFactoryTest extends PHPUnitTestCase
 {
     /**
      * @covers SchemaFactory::create()

@@ -2,7 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-class SchemaTest extends \PHPUnit_Framework_TestCase
+use Taisiya\PropelBundle\PHPUnitTestCase;
+
+class SchemaTest extends PHPUnitTestCase
 {
     /**
      * @return Schema
@@ -43,7 +45,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
     {
         /** @var Schema $schema */
         $schema = func_get_arg(0);
-
-        // TODO: write tests
+        $schema->addDatabase(new DefaultDatabase());
+        $schema->writeToFile();
     }
 }
