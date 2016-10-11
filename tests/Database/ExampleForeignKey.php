@@ -11,6 +11,4 @@ class ExampleForeignKey extends ForeignKey
     {
         return 'example';
     }
-
-
 }

@@ -172,8 +172,7 @@ abstract class Column implements ColumnInterface
      */
     public function addForeignKey(ForeignKey $foreignKey): Column
     {
-        if (array_key_exists($foreignKey->getName(), $this->foreignKeys))
-        {
+        if (array_key_exists($foreignKey->getName(), $this->foreignKeys)) {
             throw new InvalidArgumentException('Foreign key '.$foreignKey->getName().' already added.');
         }
 
@@ -197,8 +196,7 @@ abstract class Column implements ColumnInterface
      */
     public function getForeignKey(string $name): ForeignKey
     {
-        if ( ! $this->hasForeignKey($name))
-        {
+        if (! $this->hasForeignKey($name)) {
             throw new InvalidArgumentException('Foreign key '.$name.' not added.');
         }
 

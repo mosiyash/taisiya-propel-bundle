@@ -11,6 +11,4 @@ class ExampleDatabase extends Database
     {
         return 'example';
     }
-
-
 }
