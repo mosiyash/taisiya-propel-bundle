@@ -46,6 +46,8 @@ class SchemaTest extends PHPUnitTestCase
         /** @var Schema $schema */
         $schema = func_get_arg(0);
         $schema->addDatabase(new DefaultDatabase());
-        $schema->writeToFile();
+
+        $bytes = $schema->writeToFile();
+        $this->assertGreaterThanOrEqual(0, $bytes);
     }
 }
