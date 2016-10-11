@@ -2,7 +2,7 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-interface DatabaseInterface
+interface ForeignKeyInterface
 {
     public function getName(): string;
 }

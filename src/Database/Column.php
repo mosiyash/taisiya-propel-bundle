@@ -3,8 +3,9 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Propel\Generator\Model\Behavior;
+use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
 
-abstract class AbstractColumn implements ColumnInterface
+abstract class Column implements ColumnInterface
 {
     const TYPE_BOOLEAN = 'BOOLEAN';
     const TYPE_TINYINT = 'TINYINT';
@@ -42,6 +43,11 @@ abstract class AbstractColumn implements ColumnInterface
     const SQL_TYPE_DOUBLE = 'double';
     const SQL_TYPE_FLOAT = 'float';
     const SQL_TYPE_STRING = 'string';
+
+    /**
+     * @var array
+     */
+    private $foreignKeys = [];
 
     /**
      * Object model class name. By default,
@@ -152,12 +158,61 @@ abstract class AbstractColumn implements ColumnInterface
     /**
      * @var string
      */
-    private $phpNamingMethod = AbstractDatabase::PHP_NAMING_METHOD_UNDERSCORE;
+    private $phpNamingMethod = Database::PHP_NAMING_METHOD_UNDERSCORE;
 
     /**
      * @var string|bool
      */
     private $inheritance = false;
+
+    /**
+     * @param ForeignKey $foreignKey
+     * @throws InvalidArgumentException
+     * @return Column
+     */
+    public function addForeignKey(ForeignKey $foreignKey): Column
+    {
+        if (array_key_exists($foreignKey->getName(), $this->foreignKeys))
+        {
+            throw new InvalidArgumentException('Foreign key '.$foreignKey->getName().' already added.');
+        }
+
+        $this->foreignKeys[$foreignKey->getName()] = $foreignKey;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getForeignKeys(): array
+    {
+        return $this->foreignKeys;
+    }
+
+    /**
+     * @param string $name
+     * @throws InvalidArgumentException
+     * @return ForeignKey
+     */
+    public function getForeignKey(string $name): ForeignKey
+    {
+        if ( ! $this->hasForeignKey($name))
+        {
+            throw new InvalidArgumentException('Foreign key '.$name.' not added.');
+        }
+
+        return $this->foreignKeys[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function hasForeignKey(string $name): bool
+    {
+        return array_key_exists($name, $this->foreignKeys);
+    }
 
     /**
      * @return null|string

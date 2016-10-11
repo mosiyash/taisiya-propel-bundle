@@ -5,18 +5,11 @@ namespace Taisiya\PropelBundle\Database;
 final class ColumnFactory
 {
     /**
-     * @param $columnClass
-     * @return ColumnInterface
-     * @throws \InvalidArgumentException
+     * @param Column $column
+     * @return Column
      */
-    public static function create($columnClass): ColumnInterface
+    public static function create(Column $column): Column
     {
-        $obj = new $columnClass;
-
-        if (!$obj instanceof ColumnInterface) {
-            throw new \InvalidArgumentException('Column class must be instance of '.ColumnInterface::class);
-        }
-
-        return $obj;
+        return $column;
     }
 }

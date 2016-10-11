@@ -2,7 +2,7 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-final class DefaultDatabase extends AbstractDatabase
+final class DefaultDatabase extends Database
 {
     const NAME = 'default';
 

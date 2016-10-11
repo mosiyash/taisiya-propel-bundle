@@ -2,7 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-abstract class AbstractDatabase implements DatabaseInterface
+use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
+
+abstract class Database implements DatabaseInterface
 {
     const ID_METHOD_NATIVE = 'native';
     const ID_METHOD_NONE = 'none';
@@ -77,14 +79,14 @@ abstract class AbstractDatabase implements DatabaseInterface
     private $tablePrefix = null;
 
     /**
-     * AbstractDatabase constructor.
+     * Database constructor.
      * @param string $defaultIdMethod Sets the default id method to use for auto-increment columns
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     final public function __construct(string $defaultIdMethod = self::ID_METHOD_NATIVE)
     {
         if (!in_array($defaultIdMethod, [self::ID_METHOD_NATIVE, self::ID_METHOD_NONE])) {
-            throw new \InvalidArgumentException('Incorrect value for defaultIdValue');
+            throw new InvalidArgumentException('Incorrect value for defaultIdValue');
         }
 
         $this->defaultIdMethod = $defaultIdMethod;
@@ -100,14 +102,14 @@ abstract class AbstractDatabase implements DatabaseInterface
     }
 
     /**
-     * @param TableInterface $table
-     * @return DatabaseInterface
-     * @throws \InvalidArgumentException
+     * @param Table $table
+     * @return Database
+     * @throws InvalidArgumentException
      */
-    public function addTable(TableInterface $table): Databaseinterface
+    public function addTable(Table $table): Database
     {
         if ($this->hasTable($table->getName())) {
-            throw new \InvalidArgumentException('Table '.$table->getName().' already added');
+            throw new InvalidArgumentException('Table '.$table->getName().' already added');
         }
 
         $this->tables[$table->getName()] = $table;
@@ -116,10 +118,10 @@ abstract class AbstractDatabase implements DatabaseInterface
     }
 
     /**
-     * @param TableInterface $table
-     * @return DatabaseInterface
+     * @param Table $table
+     * @return Database
      */
-    public function addTableIfNotExists(TableInterface $table): DatabaseInterface
+    public function addTableIfNotExists(Table $table): Database
     {
         if (!$this->hasTable($table->getName())) {
             $this->addTable($table);
@@ -130,13 +132,13 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param string $name
-     * @return TableInterface
-     * @throws \InvalidArgumentException
+     * @return Table
+     * @throws InvalidArgumentException
      */
-    public function getTable(string $name): TableInterface
+    public function getTable(string $name): Table
     {
         if (!array_key_exists($name, $this->tables)) {
-            throw new \InvalidArgumentException('Table '.$name.' not added');
+            throw new InvalidArgumentException('Table '.$name.' not added');
         }
 
         return $this->tables[$name];
@@ -169,9 +171,9 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param string|null $package
-     * @return DatabaseInterface
+     * @return Database
      */
-    public function setPackage(string $package = null): DatabaseInterface
+    public function setPackage(string $package = null): Database
     {
         $this->package = $package;
 
@@ -188,9 +190,9 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param string|null $schema
-     * @return DatabaseInterface
+     * @return Database
      */
-    public function setSchema(string $schema = null): DatabaseInterface
+    public function setSchema(string $schema = null): Database
     {
         $this->schema = $schema;
 
@@ -207,9 +209,9 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param null|string $namespace
-     * @return DatabaseInterface
+     * @return Database
      */
-    public function setNamespace(string $namespace = null): DatabaseInterface
+    public function setNamespace(string $namespace = null): Database
     {
         $this->namespace = $namespace;
 
@@ -226,9 +228,9 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param null|string $baseClass
-     * @return DatabaseInterface
+     * @return Database
      */
-    public function setBaseClass(string $baseClass = null): DatabaseInterface
+    public function setBaseClass(string $baseClass = null): Database
     {
         $this->baseClass = $baseClass;
 
@@ -245,10 +247,10 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param string $defaultPhpNamingMethod
-     * @throws \InvalidArgumentException
-     * @return DatabaseInterface
+     * @throws InvalidArgumentException
+     * @return Database
      */
-    public function setDefaultPhpNamingMethod(string $defaultPhpNamingMethod): DatabaseInterface
+    public function setDefaultPhpNamingMethod(string $defaultPhpNamingMethod): Database
     {
         $availableMethods = [
             self::PHP_NAMING_METHOD_NOCHANGE,
@@ -258,7 +260,7 @@ abstract class AbstractDatabase implements DatabaseInterface
         ];
 
         if (!in_array($defaultPhpNamingMethod, $availableMethods)) {
-            throw new \InvalidArgumentException('Invalid naming method.');
+            throw new InvalidArgumentException('Invalid naming method.');
         }
 
         $this->defaultPhpNamingMethod = $defaultPhpNamingMethod;
@@ -276,9 +278,9 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param boolean $heavyIndexing
-     * @return DatabaseInterface
+     * @return Database
      */
-    public function setHeavyIndexing(bool $heavyIndexing): DatabaseInterface
+    public function setHeavyIndexing(bool $heavyIndexing): Database
     {
         $this->heavyIndexing = $heavyIndexing;
 
@@ -295,9 +297,9 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param boolean $identifierQuoting
-     * @return DatabaseInterface
+     * @return Database
      */
-    public function setIdentifierQuoting(bool $identifierQuoting): DatabaseInterface
+    public function setIdentifierQuoting(bool $identifierQuoting): Database
     {
         $this->identifierQuoting = $identifierQuoting;
 
@@ -314,9 +316,9 @@ abstract class AbstractDatabase implements DatabaseInterface
 
     /**
      * @param null|string $tablePrefix
-     * @return DatabaseInterface
+     * @return Database
      */
-    public function setTablePrefix(string $tablePrefix = null): DatabaseInterface
+    public function setTablePrefix(string $tablePrefix = null): Database
     {
         $this->tablePrefix = $tablePrefix;
 

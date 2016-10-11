@@ -11,6 +11,7 @@ npm-debug.log
 /app/config/settings.php
 /pimple.json
 /phinx.*
+/phpunit.xml
 /propel.*
 /schema.*
 /vendor

@@ -2,17 +2,17 @@
 
 namespace Taisiya\PropelBundle\Composer\Event;
 
-use Composer\EventDispatcher\Event;
-use Taisiya\PropelBundle\Database\Schema;
+use Taisiya\PropelBundle\Composer\ScriptHandler;
 
-class BuildPropelSchemaSubscriber extends AbstractBuildPropelSchemaSubscriber
+abstract class BuildPropelSchemaSubscriber implements BuildPropelSchemaSubscriberInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function buildPropelSchema(Event $event): void
+    final public static function getSubscribedEvents()
     {
-        /** @var Schema $schema */
-        $schema = $event->getArguments()['schema'];
+        return [
+            ScriptHandler::EVENT_BUILD_PROPEL_SCHEMA => 'buildPropelSchema',
+        ];
     }
 }
