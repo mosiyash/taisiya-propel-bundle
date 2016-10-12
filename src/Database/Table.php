@@ -25,6 +25,11 @@ abstract class Table implements TableInterface
     private $indexes = [];
 
     /**
+     * @var array
+     */
+    private $uniques = [];
+
+    /**
      * The id method to use for auto-increment columns.
      * @var string
      */
@@ -687,6 +692,62 @@ abstract class Table implements TableInterface
         }
 
         unset($this->indexes[$index::getName()]);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getUniques(): array
+    {
+        return $this->uniques;
+    }
+
+    /**
+     * @param string $name
+     * @return Unique
+     */
+    final public function getUnique(string $name): Unique
+    {
+        return $this->uniques[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    final public function hasUnique(string $name): bool
+    {
+        return array_key_exists($name, $this->uniques);
+    }
+
+    /**
+     * @param Unique $index
+     * @return Table
+     */
+    final public function addUnique(Unique $index): Table
+    {
+        if ($this->hasUnique($index::getName())) {
+            throw new InvalidArgumentException('Foreign key '.$index::getName().' already exists in the table '.$this::getName());
+        }
+
+        $this->uniques[$index::getName()] = $index;
+
+        return $this;
+    }
+
+    /**
+     * @param Unique $index
+     * @return Table
+     */
+    final public function removeUnique(Unique $index): Table
+    {
+        if (!$this->hasUnique($index::getName())) {
+            throw new InvalidArgumentException('Foreign key '.$index::getName().' not exists in the table '.$this::getName());
+        }
+
+        unset($this->uniques[$index::getName()]);
 
         return $this;
     }

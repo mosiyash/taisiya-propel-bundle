@@ -130,4 +130,40 @@ class TableTest extends PHPUnitTestCase
             $this->assertCount(0, $table->getIndexes());
         }
     }
+
+    /**
+     * @covers Table::addUnique()
+     * @covers Table::getUniques()
+     * @covers Table::getUnique()
+     * @covers Table::hasUnique()
+     * @covers Table::removeUnique()
+     */
+    public function testUniqueIndexMethods()
+    {
+        $table = new ExampleTable();
+        $this->assertCount(0, $table->getUniques());
+
+        $index = new ExampleTable\ExampleUniqueIndex();
+
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $table->addUnique($index);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+            $this->assertCount(1, $table->getUniques());
+            $this->assertInstanceOf(ExampleTable\ExampleUniqueIndex::class, $table->getUniques()[$index::getName()]);
+            $this->assertInstanceOf(ExampleTable\ExampleUniqueIndex::class, $table->getUnique($index::getName()));
+            $this->assertTrue($table->hasUnique($index::getName()));
+        }
+
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $table->removeUnique($index);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+            $this->assertCount(0, $table->getUniques());
+        }
+    }
 }
