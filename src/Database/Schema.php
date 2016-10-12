@@ -16,13 +16,42 @@ final class Schema
      * @return self
      * @throws InvalidArgumentException
      */
-    final public function addDatabase(Database $database): self
+    final public function createDatabase(Database $database): self
     {
-        if (array_key_exists($database->getName(), $this->databases)) {
+        if ($this->hasDatabase($database::getName())) {
             throw new InvalidArgumentException('Database '.$database->getName().' already added');
         }
 
         $this->databases[$database->getName()] = $database;
+
+        return $this;
+    }
+
+    /**
+     * @param Database $database
+     * @return Schema
+     */
+    final public function createDatabaseIfNotExists(Database $database): self
+    {
+        if (!$this->hasDatabase($database::getName())) {
+            $this->createDatabase($database);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Database $database
+     * @throws InvalidArgumentException
+     * @return Schema
+     */
+    final public function removeDatabase(Database $database): self
+    {
+        if (!$this->hasDatabase($database::getName())) {
+            throw new InvalidArgumentException('Database '.$database->getName().' not exists');
+        }
+
+        unset($this->databases[$database::getName()]);
 
         return $this;
     }
