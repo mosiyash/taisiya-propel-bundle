@@ -40,6 +40,7 @@ class SchemaTest extends PHPUnitTestCase
      * @covers Schema::getDatabase()
      * @covers Schema::hasDatabase()
      * @covers Schema::removeDatabase()
+     * @covers Schema::createDatabaseIfNotExists()
      */
     public function testCreateDatabase()
     {
