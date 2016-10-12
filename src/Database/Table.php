@@ -15,6 +15,11 @@ abstract class Table implements TableInterface
     private $columns = [];
 
     /**
+     * @var array
+     */
+    private $foreignKeys = [];
+
+    /**
      * The id method to use for auto-increment columns.
      * @var string
      */
@@ -565,6 +570,62 @@ abstract class Table implements TableInterface
     final public function setAllowPkInsert(bool $allowPkInsert): Table
     {
         $this->allowPkInsert = $allowPkInsert;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getForeignKeys(): array
+    {
+        return $this->foreignKeys;
+    }
+
+    /**
+     * @param string $name
+     * @return ForeignKey
+     */
+    final public function getForeignKey(string $name): ForeignKey
+    {
+        return $this->foreignKeys[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    final public function hasForeignKey(string $name): bool
+    {
+        return array_key_exists($name, $this->foreignKeys);
+    }
+
+    /**
+     * @param ForeignKey $foreignKey
+     * @return Table
+     */
+    final public function addForeignKey(ForeignKey $foreignKey): Table
+    {
+        if ($this->hasForeignKey($foreignKey::getName())) {
+            throw new InvalidArgumentException('Foreign key '.$foreignKey::getName().' already exists in the table '.$this::getName());
+        }
+
+        $this->foreignKeys[$foreignKey::getName()] = $foreignKey;
+
+        return $this;
+    }
+
+    /**
+     * @param ForeignKey $foreignKey
+     * @return Table
+     */
+    final public function removeForeignKey(ForeignKey $foreignKey): Table
+    {
+        if (!$this->hasForeignKey($foreignKey::getName())) {
+            throw new InvalidArgumentException('Foreign key '.$foreignKey::getName().' not exists in the table '.$this::getName());
+        }
+
+        unset($this->foreignKeys[$foreignKey::getName()]);
 
         return $this;
     }

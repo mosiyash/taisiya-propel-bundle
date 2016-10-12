@@ -4,23 +4,15 @@ namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignKey;
+use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleTable;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class TableTest extends PHPUnitTestCase
 {
-    /**
-     * @return Table
-     */
-    public function testConstruct()
-    {
-        $table = new ExampleTable();
-        $this->assertInstanceOf(Table::class, $table);
-        return $table;
-    }
 
     /**
-     * @depends testConstruct
      * @covers Table::createColumn()
      * @covers Table::createColumnIfNotExists()
      * @covers Table::getColumns()
@@ -28,10 +20,9 @@ class TableTest extends PHPUnitTestCase
      * @covers Table::hasColumn()
      * @covers Table::removeColumn()
      */
-    public function testTables()
+    public function testColumnMethods()
     {
-        /** @var Table $table */
-        $table = func_get_arg(0);
+        $table = new ExampleTable();
         $this->assertCount(0, $table->getColumns());
 
         $column = new ExampleColumn();
@@ -62,6 +53,38 @@ class TableTest extends PHPUnitTestCase
             $table->createColumnIfNotExists($column);
             $this->assertCount(1, $table->getColumns());
             $this->assertEquals($column, $table->getColumn(ExampleColumn::getName()));
+        }
+    }
+
+    public function testForeignKeyMethods()
+    {
+        $table = new ExampleTable();
+        $this->assertCount(0, $table->getForeignKeys());
+
+        $foreignKey = new ExampleForeignKey(
+            new ExampleForeignTable(),
+            new ForeignKeyReference(new ExampleTable\IdColumn(), new ExampleForeignTable\ForeignIdColumn())
+        );
+
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $table->addForeignKey($foreignKey);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+            $this->assertCount(1, $table->getForeignKeys());
+            $this->assertInstanceOf(ExampleForeignKey::class, $table->getForeignKeys()[$foreignKey::getName()]);
+            $this->assertInstanceOf(ExampleForeignKey::class, $table->getForeignKey($foreignKey::getName()));
+            $this->assertTrue($table->hasForeignKey($foreignKey::getName()));
+        }
+
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $table->removeForeignKey($foreignKey);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+            $this->assertCount(0, $table->getForeignKeys());
         }
     }
 }
