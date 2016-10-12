@@ -1,6 +1,8 @@
 <?php
 
-namespace Taisiya\PropelBundle\Database;
+namespace Taisiya\PropelBundle\Database\TestDatabase;
+
+use Taisiya\PropelBundle\Database\Table;
 
 class ExampleForeignTable extends Table
 {

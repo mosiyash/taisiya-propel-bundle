@@ -2,6 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database;
 
+use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
+use Taisiya\PropelBundle\Database\TestDatabase\ExampleDatabase;
+use Taisiya\PropelBundle\Database\TestDatabase\ExampleTable;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class DatabaseTest extends PHPUnitTestCase
@@ -18,23 +21,47 @@ class DatabaseTest extends PHPUnitTestCase
 
     /**
      * @depends testConstruct
-     * @covers Schema::addTable()
-     * @covers Schema::getTables()
-     * @covers Schema::getTable()
-     * @covers Schema::hasTable()
+     * @covers Database::createTable()
+     * @covers Database::createTableIfNotExists()
+     * @covers Database::getTables()
+     * @covers Database::getTable()
+     * @covers Database::hasTable()
+     * @covers Database::removeTable()
      */
     public function testTables()
     {
         /** @var Database $database */
         $database = func_get_arg(0);
+        $this->assertCount(0, $database->getTables());
 
         $table = new ExampleTable();
-        $database->addTable(TableFactory::create($table));
 
-        $this->assertCount(1, $database->getTables());
-        $this->assertArrayHasKey(ExampleTable::getName(), $database->getTables());
-        $this->assertEquals($table, $database->getTables()[ExampleTable::getName()]);
-        $this->assertEquals($table, $database->getTable(ExampleTable::getName()));
-        $this->assertTrue($database->hasTable(ExampleTable::getName()));
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $database->createTable($table);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+
+            $this->assertCount(1, $database->getTables());
+            $this->assertEquals($table, $database->getTables()[ExampleTable::getName()]);
+            $this->assertEquals($table, $database->getTable(ExampleTable::getName()));
+            $this->assertTrue($database->hasTable(ExampleTable::getName()));
+        }
+
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $database->removeTable($table);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+            $this->assertCount(0, $database->getTables());
+        }
+
+        for ($i = 0; $i < 2; $i++) {
+            $database->createTableIfNotExists($table);
+            $this->assertCount(1, $database->getTables());
+            $this->assertEquals($table, $database->getTable(ExampleTable::getName()));
+        }
     }
 }

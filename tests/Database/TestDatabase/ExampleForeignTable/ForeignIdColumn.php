@@ -1,6 +1,6 @@
 <?php
 
-namespace Taisiya\PropelBundle\Database\ExampleForeignTable;
+namespace Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable;
 
 use Taisiya\PropelBundle\Database\Column;
 

@@ -3,6 +3,7 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
+use Taisiya\PropelBundle\Database\TestDatabase\ExampleDatabase;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class SchemaTest extends PHPUnitTestCase

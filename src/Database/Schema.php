@@ -16,13 +16,13 @@ final class Schema
      * @return self
      * @throws InvalidArgumentException
      */
-    final public function createDatabase(Database $database): self
+    public function createDatabase(Database $database): self
     {
         if ($this->hasDatabase($database::getName())) {
-            throw new InvalidArgumentException('Database '.$database->getName().' already added');
+            throw new InvalidArgumentException('Database '.$database::getName().' already added');
         }
 
-        $this->databases[$database->getName()] = $database;
+        $this->databases[$database::getName()] = $database;
 
         return $this;
     }
@@ -31,7 +31,7 @@ final class Schema
      * @param Database $database
      * @return Schema
      */
-    final public function createDatabaseIfNotExists(Database $database): self
+    public function createDatabaseIfNotExists(Database $database): self
     {
         if (!$this->hasDatabase($database::getName())) {
             $this->createDatabase($database);
@@ -45,10 +45,10 @@ final class Schema
      * @throws InvalidArgumentException
      * @return Schema
      */
-    final public function removeDatabase(Database $database): self
+    public function removeDatabase(Database $database): self
     {
         if (!$this->hasDatabase($database::getName())) {
-            throw new InvalidArgumentException('Database '.$database->getName().' not exists');
+            throw new InvalidArgumentException('Database '.$database::getName().' not exists');
         }
 
         unset($this->databases[$database::getName()]);
@@ -61,7 +61,7 @@ final class Schema
      * @return Database
      * @throws InvalidArgumentException
      */
-    final public function getDatabase(string $name): Database
+    public function getDatabase(string $name): Database
     {
         if (!array_key_exists($name, $this->databases)) {
             throw new InvalidArgumentException('Database '.$name.' not added');
@@ -70,7 +70,7 @@ final class Schema
         return $this->databases[$name];
     }
 
-    final public function getDatabaseByClassName(string $class): Database
+    public function getDatabaseByClassName(string $class): Database
     {
 
     }
@@ -79,12 +79,12 @@ final class Schema
      * @param string $name
      * @return bool
      */
-    final public function hasDatabase(string $name): bool
+    public function hasDatabase(string $name): bool
     {
         return array_key_exists($name, $this->databases);
     }
 
-    final public function hasDatabaseByClassName(string $className): bool
+    public function hasDatabaseByClassName(string $className): bool
     {
         if ( ! class_exists($className)) {
             throw new InvalidArgumentException('Class '.$className.' not exists.');
@@ -100,7 +100,7 @@ final class Schema
     /**
      * @return array
      */
-    final public function getDatabases(): array
+    public function getDatabases(): array
     {
         return $this->databases;
     }
@@ -110,7 +110,7 @@ final class Schema
      * @param string $filepath
      * @return int the number of bytes written or false if an error occurred.
      */
-    final public function writeToFile($filepath = TAISIYA_ROOT.'/schema.xml')
+    public function writeToFile($filepath = TAISIYA_ROOT.'/schema.xml')
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
@@ -118,7 +118,7 @@ final class Schema
         /** @var Database $database */
         foreach ($this->getDatabases() as $database) {
             $databaseElement = $dom->createElement('database');
-            $databaseElement->setAttribute('name', $database->getName());
+            $databaseElement->setAttribute('name', $database::getName());
             $databaseElement->setAttribute('defaultIdMethod', $database->getDefaultIdMethod());
 
             $additionalProperties = [

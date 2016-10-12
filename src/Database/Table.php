@@ -190,13 +190,13 @@ abstract class Table implements TableInterface
      * @return Table
      * @throws InvalidArgumentException
      */
-    public function addColumn(Column $column): Table
+    final public function createColumn(Column $column): Table
     {
-        if ($this->hasColumn($column->getName())) {
-            throw new InvalidArgumentException('Column '.$column->getName().' already added');
+        if ($this->hasColumn($column::getName())) {
+            throw new InvalidArgumentException('Column '.$column::getName().' already added');
         }
 
-        $this->columns[$column->getName()] = $column;
+        $this->columns[$column::getName()] = $column;
 
         return $this;
     }
@@ -205,11 +205,27 @@ abstract class Table implements TableInterface
      * @param Column $column
      * @return Table
      */
-    public function addColumnIfNotExists(Column $column): Table
+    final public function createColumnIfNotExists(Column $column): Table
     {
-        if (!$this->hasColumn($column->getName())) {
-            $this->addColumn($column);
+        if (!$this->hasColumn($column::getName())) {
+            $this->createColumn($column);
         }
+
+        return $this;
+    }
+
+    /**
+     * @param Column $column
+     * @return Table
+     * @throws InvalidArgumentException
+     */
+    final public function removeColumn(Column $column): Table
+    {
+        if (!$this->hasColumn($column::getName())) {
+            throw new InvalidArgumentException('Column '.$column::getName().' not exists');
+        }
+
+        unset($this->columns[$column::getName()]);
 
         return $this;
     }
@@ -219,7 +235,7 @@ abstract class Table implements TableInterface
      * @return Column
      * @throws InvalidArgumentException
      */
-    public function getColumn(string $name): Column
+    final public function getColumn(string $name): Column
     {
         if (!array_key_exists($name, $this->columns)) {
             throw new InvalidArgumentException('Column '.$name.' not added');
@@ -232,7 +248,7 @@ abstract class Table implements TableInterface
      * @param string $name
      * @return bool
      */
-    public function hasColumn(string $name): bool
+    final public function hasColumn(string $name): bool
     {
         return array_key_exists($name, $this->columns);
     }
@@ -240,7 +256,7 @@ abstract class Table implements TableInterface
     /**
      * @return array
      */
-    public function getColumns(): array
+    final public function getColumns(): array
     {
         return $this->columns;
     }
@@ -248,7 +264,7 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    public function getPackage(): ?string
+    final public function getPackage(): ?string
     {
         return $this->package;
     }
@@ -257,7 +273,7 @@ abstract class Table implements TableInterface
      * @param null|string $package
      * @return Table
      */
-    public function setPackage(string $package = null): Table
+    final public function setPackage(string $package = null): Table
     {
         $this->package = $package;
 
@@ -267,7 +283,7 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    public function getSchema(): ?string
+    final public function getSchema(): ?string
     {
         return $this->schema;
     }
@@ -276,7 +292,7 @@ abstract class Table implements TableInterface
      * @param null|string $schema
      * @return Table
      */
-    public function setSchema(string $schema = null): Table
+    final public function setSchema(string $schema = null): Table
     {
         $this->schema = $schema;
 
@@ -286,7 +302,7 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    public function getNamespace(): ?string
+    final public function getNamespace(): ?string
     {
         return $this->namespace;
     }
@@ -295,7 +311,7 @@ abstract class Table implements TableInterface
      * @param null|string $namespace
      * @return Table
      */
-    public function setNamespace(string $namespace = null): Table
+    final public function setNamespace(string $namespace = null): Table
     {
         $this->namespace = $namespace;
 
@@ -305,7 +321,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isSkipSql(): bool
+    final public function isSkipSql(): bool
     {
         return $this->skipSql;
     }
@@ -314,7 +330,7 @@ abstract class Table implements TableInterface
      * @param boolean $skipSql
      * @return Table
      */
-    public function setSkipSql(bool $skipSql): Table
+    final public function setSkipSql(bool $skipSql): Table
     {
         $this->skipSql = $skipSql;
 
@@ -324,7 +340,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isAbstract(): bool
+    final public function isAbstract(): bool
     {
         return $this->abstract;
     }
@@ -333,7 +349,7 @@ abstract class Table implements TableInterface
      * @param boolean $abstract
      * @return Table
      */
-    public function setAbstract(bool $abstract): Table
+    final public function setAbstract(bool $abstract): Table
     {
         $this->abstract = $abstract;
 
@@ -343,7 +359,7 @@ abstract class Table implements TableInterface
     /**
      * @return string
      */
-    public function getPhpNamingMethod(): string
+    final public function getPhpNamingMethod(): string
     {
         return $this->phpNamingMethod;
     }
@@ -352,7 +368,7 @@ abstract class Table implements TableInterface
      * @param string $phpNamingMethod
      * @return Table
      */
-    public function setPhpNamingMethod(string $phpNamingMethod): Table
+    final public function setPhpNamingMethod(string $phpNamingMethod): Table
     {
         $availableMethods = [
             Database::PHP_NAMING_METHOD_NOCHANGE,
@@ -373,7 +389,7 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    public function getBaseClass(): ?string
+    final public function getBaseClass(): ?string
     {
         return $this->baseClass;
     }
@@ -382,7 +398,7 @@ abstract class Table implements TableInterface
      * @param null|string $baseClass
      * @return Table
      */
-    public function setBaseClass(string $baseClass = null): Table
+    final public function setBaseClass(string $baseClass = null): Table
     {
         $this->baseClass = $baseClass;
 
@@ -392,7 +408,7 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    public function getDescription(): ?string
+    final public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -401,7 +417,7 @@ abstract class Table implements TableInterface
      * @param null|string $description
      * @return Table
      */
-    public function setDescription(string $description = null): Table
+    final public function setDescription(string $description = null): Table
     {
         $this->description = $description;
 
@@ -411,7 +427,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isHeavyIndexing(): bool
+    final public function isHeavyIndexing(): bool
     {
         return $this->heavyIndexing;
     }
@@ -420,7 +436,7 @@ abstract class Table implements TableInterface
      * @param boolean $heavyIndexing
      * @return Table
      */
-    public function setHeavyIndexing(bool $heavyIndexing): Table
+    final public function setHeavyIndexing(bool $heavyIndexing): Table
     {
         $this->heavyIndexing = $heavyIndexing;
 
@@ -430,7 +446,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isIdentifierQuoting(): bool
+    final public function isIdentifierQuoting(): bool
     {
         return $this->identifierQuoting;
     }
@@ -439,7 +455,7 @@ abstract class Table implements TableInterface
      * @param boolean $identifierQuoting
      * @return Table
      */
-    public function setIdentifierQuoting(bool $identifierQuoting): Table
+    final public function setIdentifierQuoting(bool $identifierQuoting): Table
     {
         $this->identifierQuoting = $identifierQuoting;
 
@@ -449,7 +465,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isReadOnly(): bool
+    final public function isReadOnly(): bool
     {
         return $this->readOnly;
     }
@@ -458,7 +474,7 @@ abstract class Table implements TableInterface
      * @param boolean $readOnly
      * @return Table
      */
-    public function setReadOnly(bool $readOnly): Table
+    final public function setReadOnly(bool $readOnly): Table
     {
         $this->readOnly = $readOnly;
 
@@ -468,7 +484,7 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    public function getTreeMode(): ?string
+    final public function getTreeMode(): ?string
     {
         return $this->treeMode;
     }
@@ -478,7 +494,7 @@ abstract class Table implements TableInterface
      * @throws InvalidArgumentException
      * @return Table
      */
-    public function setTreeMode(string $treeMode = null): Table
+    final public function setTreeMode(string $treeMode = null): Table
     {
         if ($treeMode !== null) {
             $available = [
@@ -499,7 +515,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isReloadOnInsert(): bool
+    final public function isReloadOnInsert(): bool
     {
         return $this->reloadOnInsert;
     }
@@ -508,7 +524,7 @@ abstract class Table implements TableInterface
      * @param boolean $reloadOnInsert
      * @return Table
      */
-    public function setReloadOnInsert(bool $reloadOnInsert): Table
+    final public function setReloadOnInsert(bool $reloadOnInsert): Table
     {
         $this->reloadOnInsert = $reloadOnInsert;
 
@@ -518,7 +534,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isReloadOnUpdate(): bool
+    final public function isReloadOnUpdate(): bool
     {
         return $this->reloadOnUpdate;
     }
@@ -527,7 +543,7 @@ abstract class Table implements TableInterface
      * @param boolean $reloadOnUpdate
      * @return Table
      */
-    public function setReloadOnUpdate(bool $reloadOnUpdate): Table
+    final public function setReloadOnUpdate(bool $reloadOnUpdate): Table
     {
         $this->reloadOnUpdate = $reloadOnUpdate;
 
@@ -537,7 +553,7 @@ abstract class Table implements TableInterface
     /**
      * @return boolean
      */
-    public function isAllowPkInsert(): bool
+    final public function isAllowPkInsert(): bool
     {
         return $this->allowPkInsert;
     }
@@ -546,7 +562,7 @@ abstract class Table implements TableInterface
      * @param boolean $allowPkInsert
      * @return Table
      */
-    public function setAllowPkInsert(bool $allowPkInsert): Table
+    final public function setAllowPkInsert(bool $allowPkInsert): Table
     {
         $this->allowPkInsert = $allowPkInsert;
 

@@ -170,7 +170,7 @@ abstract class Column implements ColumnInterface
      * @throws InvalidArgumentException
      * @return Column
      */
-    public function addForeignKey(ForeignKey $foreignKey): Column
+    final public function addForeignKey(ForeignKey $foreignKey): Column
     {
         if (array_key_exists($foreignKey->getName(), $this->foreignKeys)) {
             throw new InvalidArgumentException('Foreign key '.$foreignKey->getName().' already added.');
@@ -184,7 +184,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return array
      */
-    public function getForeignKeys(): array
+    final public function getForeignKeys(): array
     {
         return $this->foreignKeys;
     }
@@ -194,7 +194,7 @@ abstract class Column implements ColumnInterface
      * @throws InvalidArgumentException
      * @return ForeignKey
      */
-    public function getForeignKey(string $name): ForeignKey
+    final public function getForeignKey(string $name): ForeignKey
     {
         if (! $this->hasForeignKey($name)) {
             throw new InvalidArgumentException('Foreign key '.$name.' not added.');
@@ -207,7 +207,7 @@ abstract class Column implements ColumnInterface
      * @param string $name
      * @return bool
      */
-    public function hasForeignKey(string $name): bool
+    final public function hasForeignKey(string $name): bool
     {
         return array_key_exists($name, $this->foreignKeys);
     }
@@ -215,7 +215,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getPhpName(): ?string
+    final public function getPhpName(): ?string
     {
         return $this->phpName;
     }
@@ -224,7 +224,7 @@ abstract class Column implements ColumnInterface
      * @param null|string $phpName
      * @return ColumnInterface
      */
-    public function setPhpName(string $phpName = null): ColumnInterface
+    final public function setPhpName(string $phpName = null): ColumnInterface
     {
         $this->phpName = $phpName;
         return $this;
@@ -233,7 +233,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getTableMapName(): ?string
+    final public function getTableMapName(): ?string
     {
         return $this->tableMapName;
     }
@@ -242,7 +242,7 @@ abstract class Column implements ColumnInterface
      * @param null|string $tableMapName
      * @return ColumnInterface
      */
-    public function setTableMapName(string $tableMapName = null): ColumnInterface
+    final public function setTableMapName(string $tableMapName = null): ColumnInterface
     {
         $this->tableMapName = $tableMapName;
         return $this;
@@ -251,7 +251,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return boolean
      */
-    public function isPrimaryKey(): bool
+    final public function isPrimaryKey(): bool
     {
         return $this->primaryKey;
     }
@@ -260,7 +260,7 @@ abstract class Column implements ColumnInterface
      * @param boolean $primaryKey
      * @return ColumnInterface
      */
-    public function setPrimaryKey(bool $primaryKey): ColumnInterface
+    final public function setPrimaryKey(bool $primaryKey): ColumnInterface
     {
         $this->primaryKey = $primaryKey;
         return $this;
@@ -269,7 +269,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return boolean
      */
-    public function isRequired(): bool
+    final public function isRequired(): bool
     {
         return $this->required;
     }
@@ -278,7 +278,7 @@ abstract class Column implements ColumnInterface
      * @param boolean $required
      * @return ColumnInterface
      */
-    public function setRequired(bool $required): ColumnInterface
+    final public function setRequired(bool $required): ColumnInterface
     {
         $this->required = $required;
         return $this;
@@ -287,7 +287,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getType(): ?string
+    final public function getType(): ?string
     {
         return $this->type;
     }
@@ -297,7 +297,7 @@ abstract class Column implements ColumnInterface
      * @throws \InvalidArgumentException
      * @return ColumnInterface
      */
-    public function setType(string $type = null): ColumnInterface
+    final public function setType(string $type = null): ColumnInterface
     {
         if ($type) {
             $available = [
@@ -346,7 +346,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getPhpType(): ?string
+    final public function getPhpType(): ?string
     {
         return $this->phpType;
     }
@@ -355,7 +355,7 @@ abstract class Column implements ColumnInterface
      * @param null|string $phpType
      * @return ColumnInterface
      */
-    public function setPhpType(string $phpType = null): ColumnInterface
+    final public function setPhpType(string $phpType = null): ColumnInterface
     {
         $this->phpType = $phpType;
         return $this;
@@ -364,7 +364,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getSqlType(): ?string
+    final public function getSqlType(): ?string
     {
         return $this->sqlType;
     }
@@ -374,7 +374,7 @@ abstract class Column implements ColumnInterface
      * @throws \InvalidArgumentException
      * @return ColumnInterface
      */
-    public function setSqlType(string $sqlType = null): ColumnInterface
+    final public function setSqlType(string $sqlType = null): ColumnInterface
     {
         if ($sqlType) {
             $available = [
@@ -406,7 +406,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return int|null
      */
-    public function getSize(): ?int
+    final public function getSize(): ?int
     {
         return $this->size;
     }
@@ -415,7 +415,7 @@ abstract class Column implements ColumnInterface
      * @param int|null $size
      * @return ColumnInterface
      */
-    public function setSize(int $size = null): ColumnInterface
+    final public function setSize(int $size = null): ColumnInterface
     {
         $this->size = $size;
         return $this;
@@ -424,7 +424,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return int|null
      */
-    public function getScale(): ?int
+    final public function getScale(): ?int
     {
         return $this->scale;
     }
@@ -433,7 +433,7 @@ abstract class Column implements ColumnInterface
      * @param int|null $scale
      * @return ColumnInterface
      */
-    public function setScale(int $scale = null): ColumnInterface
+    final public function setScale(int $scale = null): ColumnInterface
     {
         $this->scale = $scale;
         return $this;
@@ -442,7 +442,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getDefaultvalue(): ?string
+    final public function getDefaultvalue(): ?string
     {
         return $this->defaultvalue;
     }
@@ -451,7 +451,7 @@ abstract class Column implements ColumnInterface
      * @param null|string $defaultvalue
      * @return ColumnInterface
      */
-    public function setDefaultvalue(string $defaultvalue = null): ColumnInterface
+    final public function setDefaultvalue(string $defaultvalue = null): ColumnInterface
     {
         $this->defaultvalue = $defaultvalue;
         return $this;
@@ -460,7 +460,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getDefaultExpr(): ?string
+    final public function getDefaultExpr(): ?string
     {
         return $this->defaultExpr;
     }
@@ -469,7 +469,7 @@ abstract class Column implements ColumnInterface
      * @param null|string $defaultExpr
      * @return ColumnInterface
      */
-    public function setDefaultExpr(string $defaultExpr = null): ColumnInterface
+    final public function setDefaultExpr(string $defaultExpr = null): ColumnInterface
     {
         $this->defaultExpr = $defaultExpr;
         return $this;
@@ -478,7 +478,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getValueSet(): ?string
+    final public function getValueSet(): ?string
     {
         return $this->valueSet;
     }
@@ -487,7 +487,7 @@ abstract class Column implements ColumnInterface
      * @param null|string $valueSet
      * @return ColumnInterface
      */
-    public function setValueSet(string $valueSet = null): ColumnInterface
+    final public function setValueSet(string $valueSet = null): ColumnInterface
     {
         $this->valueSet = $valueSet;
         return $this;
@@ -496,7 +496,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return boolean
      */
-    public function isAutoIncrement(): bool
+    final public function isAutoIncrement(): bool
     {
         return $this->autoIncrement;
     }
@@ -505,7 +505,7 @@ abstract class Column implements ColumnInterface
      * @param boolean $autoIncrement
      * @return ColumnInterface
      */
-    public function setAutoIncrement(bool $autoIncrement): ColumnInterface
+    final public function setAutoIncrement(bool $autoIncrement): ColumnInterface
     {
         $this->autoIncrement = $autoIncrement;
         return $this;
@@ -514,7 +514,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return boolean
      */
-    public function isLazyLoad(): bool
+    final public function isLazyLoad(): bool
     {
         return $this->lazyLoad;
     }
@@ -523,7 +523,7 @@ abstract class Column implements ColumnInterface
      * @param boolean $lazyLoad
      * @return ColumnInterface
      */
-    public function setLazyLoad(bool $lazyLoad): ColumnInterface
+    final public function setLazyLoad(bool $lazyLoad): ColumnInterface
     {
         $this->lazyLoad = $lazyLoad;
         return $this;
@@ -532,7 +532,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    public function getDescription(): ?string
+    final public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -541,7 +541,7 @@ abstract class Column implements ColumnInterface
      * @param null|string $description
      * @return ColumnInterface
      */
-    public function setDescription(string $description = null): ColumnInterface
+    final public function setDescription(string $description = null): ColumnInterface
     {
         $this->description = $description;
         return $this;
@@ -550,7 +550,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return boolean
      */
-    public function isPrimaryString(): bool
+    final public function isPrimaryString(): bool
     {
         return $this->primaryString;
     }
@@ -559,7 +559,7 @@ abstract class Column implements ColumnInterface
      * @param boolean $primaryString
      * @return ColumnInterface
      */
-    public function setPrimaryString(bool $primaryString): ColumnInterface
+    final public function setPrimaryString(bool $primaryString): ColumnInterface
     {
         $this->primaryString = $primaryString;
         return $this;
@@ -568,7 +568,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return string
      */
-    public function getPhpNamingMethod(): string
+    final public function getPhpNamingMethod(): string
     {
         return $this->phpNamingMethod;
     }
@@ -577,7 +577,7 @@ abstract class Column implements ColumnInterface
      * @param string $phpNamingMethod
      * @return ColumnInterface
      */
-    public function setPhpNamingMethod(string $phpNamingMethod): ColumnInterface
+    final public function setPhpNamingMethod(string $phpNamingMethod): ColumnInterface
     {
         $this->phpNamingMethod = $phpNamingMethod;
         return $this;
@@ -586,7 +586,7 @@ abstract class Column implements ColumnInterface
     /**
      * @return bool|string
      */
-    public function getInheritance(): ?string
+    final public function getInheritance(): ?string
     {
         return $this->inheritance;
     }
@@ -595,7 +595,7 @@ abstract class Column implements ColumnInterface
      * @param bool|string $inheritance
      * @return ColumnInterface
      */
-    public function setInheritance(string $inheritance = null): ColumnInterface
+    final public function setInheritance(string $inheritance = null): ColumnInterface
     {
         $this->inheritance = $inheritance;
         return $this;

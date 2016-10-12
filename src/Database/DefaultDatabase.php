@@ -7,7 +7,7 @@ final class DefaultDatabase extends Database
     /**
      * {@inheritdoc}
      */
-    public STATIC function getName(): string
+    public static function getName(): string
     {
         return 'default';
     }

@@ -1,8 +1,10 @@
 <?php
 
-namespace Taisiya\PropelBundle\Database;
+namespace Taisiya\PropelBundle\Database\TestDatabase;
 
-class ExampleDatabase extends Database
+use Taisiya\PropelBundle\Database\Column;
+
+class ExampleColumn extends Column
 {
     /**
      * @return string

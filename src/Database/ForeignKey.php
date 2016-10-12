@@ -99,7 +99,7 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return null|string
      */
-    public function getForeignSchema(): ?string
+    final public function getForeignSchema(): ?string
     {
         return $this->foreignSchema;
     }
@@ -108,7 +108,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param null|string $foreignSchema
      * @return ForeignKey
      */
-    public function setForeignSchema($foreignSchema)
+    final public function setForeignSchema($foreignSchema)
     {
         $this->foreignSchema = $foreignSchema;
         return $this;
@@ -118,7 +118,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param null|string $name
      * @return ForeignKey
      */
-    public function setName($name)
+    final public function setName($name)
     {
         $this->name = $name;
         return $this;
@@ -127,7 +127,7 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return null|string
      */
-    public function getPhpName()
+    final public function getPhpName()
     {
         return $this->phpName;
     }
@@ -136,7 +136,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param null|string $phpName
      * @return ForeignKey
      */
-    public function setPhpName($phpName)
+    final public function setPhpName($phpName)
     {
         $this->phpName = $phpName;
         return $this;
@@ -145,7 +145,7 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return null|string
      */
-    public function getRefPhpName()
+    final public function getRefPhpName()
     {
         return $this->refPhpName;
     }
@@ -154,7 +154,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param null|string $refPhpName
      * @return ForeignKey
      */
-    public function setRefPhpName($refPhpName)
+    final public function setRefPhpName($refPhpName)
     {
         $this->refPhpName = $refPhpName;
         return $this;
@@ -163,7 +163,7 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return null|string
      */
-    public function getOnDelete()
+    final public function getOnDelete()
     {
         return $this->onDelete;
     }
@@ -172,7 +172,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param null|string $onDelete
      * @return ForeignKey
      */
-    public function setOnDelete($onDelete)
+    final public function setOnDelete($onDelete)
     {
         $this->onDelete = $onDelete;
         return $this;
@@ -181,7 +181,7 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return null|string
      */
-    public function getOnUpdate()
+    final public function getOnUpdate()
     {
         return $this->onUpdate;
     }
@@ -190,7 +190,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param null|string $onUpdate
      * @return ForeignKey
      */
-    public function setOnUpdate($onUpdate)
+    final public function setOnUpdate($onUpdate)
     {
         $this->onUpdate = $onUpdate;
         return $this;
@@ -199,7 +199,7 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return bool|null
      */
-    public function getSkipSql()
+    final public function getSkipSql()
     {
         return $this->skipSql;
     }
@@ -208,7 +208,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param bool|null $skipSql
      * @return ForeignKey
      */
-    public function setSkipSql($skipSql)
+    final public function setSkipSql($skipSql)
     {
         $this->skipSql = $skipSql;
         return $this;
@@ -217,7 +217,7 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return null|string
      */
-    public function getDefaultJoin()
+    final public function getDefaultJoin()
     {
         return $this->defaultJoin;
     }
@@ -226,7 +226,7 @@ abstract class ForeignKey implements ForeignKeyInterface
      * @param null|string $defaultJoin
      * @return ForeignKey
      */
-    public function setDefaultJoin($defaultJoin)
+    final public function setDefaultJoin($defaultJoin)
     {
         $this->defaultJoin = $defaultJoin;
         return $this;
