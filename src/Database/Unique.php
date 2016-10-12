@@ -2,7 +2,7 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-abstract class Index implements IndexInterface
+abstract class Unique extends Index
 {
     use IndexTrait;
 }
