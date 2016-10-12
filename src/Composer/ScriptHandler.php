@@ -62,7 +62,7 @@ class ScriptHandler extends CoreScriptHandler
 
             /** @var Node\Stmt\Class_ $class */
             $class = self::findNodeByInstanceType($namespace->stmts, Node\Stmt\Class_::class);
-            if ($class->name !== 'BuildPropelSchemaSubscriber') {
+            if ($class->name !== 'BuildPropelSchemaSubscriber' || $class->isAbstract()) {
                 continue;
             }
 
