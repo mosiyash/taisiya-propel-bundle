@@ -72,7 +72,6 @@ final class Schema
 
     public function getDatabaseByClassName(string $class): Database
     {
-
     }
 
     /**
@@ -86,7 +85,7 @@ final class Schema
 
     public function hasDatabaseByClassName(string $className): bool
     {
-        if ( ! class_exists($className)) {
+        if (! class_exists($className)) {
             throw new InvalidArgumentException('Class '.$className.' not exists.');
         }
         $reflectionClass = new \ReflectionClass($className);
