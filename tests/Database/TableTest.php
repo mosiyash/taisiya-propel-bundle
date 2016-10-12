@@ -96,11 +96,11 @@ class TableTest extends PHPUnitTestCase
     }
 
     /**
-     * @covers Table::addForeignKey()
-     * @covers Table::getForeignKeys()
-     * @covers Table::getForeignKey()
-     * @covers Table::hasForeignKey()
-     * @covers Table::removeForeignKey()
+     * @covers Table::addIndex()
+     * @covers Table::getIndexes()
+     * @covers Table::getIndex()
+     * @covers Table::hasIndex()
+     * @covers Table::removeIndex()
      */
     public function testIndexMethods()
     {
