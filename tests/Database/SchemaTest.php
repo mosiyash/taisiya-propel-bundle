@@ -6,6 +6,22 @@ use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class SchemaTest extends PHPUnitTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+
+        if (file_exists($this->getTmpSchemaFilepath())) {
+            unlink($this->getTmpSchemaFilepath());
+        }
+    }
+
+    protected function tearDown()
+    {
+        if (file_exists($this->getTmpSchemaFilepath())) {
+            unlink($this->getTmpSchemaFilepath());
+        }
+    }
+
     /**
      * @return Schema
      */
@@ -40,12 +56,22 @@ class SchemaTest extends PHPUnitTestCase
 
     public function testWriteToFile()
     {
-        $schema = SchemaFactory::create();
-        $schema->writeToFile()
+//        $schema = SchemaFactory::create();
+//        $schema->addDatabase(new ExampleDatabase());
+//        $schema->writeToFile($this->getTmpSchemaFilepath());
+
+        // TODO: write tests
     }
 
-    private function getTestSchemaFilepath()
+    /**
+     * @return string
+     */
+    private function getTmpSchemaFilepath()
     {
-        return TAISIYA_ROOT
+        $filepath = TAISIYA_ROOT.'/var/tmp/schema.xml';
+        if (!file_exists(dirname($filepath))) {
+            mkdir(dirname($filepath), 0777, true);
+        }
+        return $filepath;
     }
 }

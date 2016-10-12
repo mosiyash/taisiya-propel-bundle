@@ -63,126 +63,127 @@ final class Schema
      */
     final public function writeToFile($filepath = TAISIYA_ROOT.'/schema.xml')
     {
-        $database = $this->getDatabase(DefaultDatabase::NAME);
-
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
 
-        $databaseElement = $dom->createElement('database');
-        $databaseElement->setAttribute('name', $database->getName());
-        $databaseElement->setAttribute('defaultIdMethod', $database->getDefaultIdMethod());
-
-        $additionalProperties = [
-            'package',
-            'schema',
-            'namespace',
-            'baseClass',
-            'defaultPhpNamingMethod',
-            'heavyIndexing',
-            'identifierQuoting',
-            'tablePrefix',
-        ];
-
-        foreach ($additionalProperties as $propertyName) {
-            $method = method_exists($database, 'get'.ucfirst($propertyName))
-                ? 'get'.ucfirst($propertyName)
-                : 'is'.ucfirst($propertyName);
-
-            $propertyValue = $database->{$method}();
-            if ($propertyValue != '') {
-                if (is_bool($propertyValue)) {
-                    $propertyValue = $propertyValue ? 'true' : false;
-                }
-                $databaseElement->setAttribute($propertyName, $propertyValue);
-            }
-        }
-
-        /** @var TableInterface $table */
-        foreach ($database->getTables() as $table) {
-            $tableElement = $dom->createElement('table');
-            $tableElement->setAttribute('name', $table->getName());
+        /** @var Database $database */
+        foreach ($this->getDatabases() as $database) {
+            $databaseElement = $dom->createElement('database');
+            $databaseElement->setAttribute('name', $database->getName());
+            $databaseElement->setAttribute('defaultIdMethod', $database->getDefaultIdMethod());
 
             $additionalProperties = [
-                'idMethod',
-                'phpName',
                 'package',
                 'schema',
                 'namespace',
-                'skipSql',
-                'abstract',
-                'phpNamingMethod',
                 'baseClass',
-                'description',
+                'defaultPhpNamingMethod',
                 'heavyIndexing',
                 'identifierQuoting',
-                'readOnly',
-                'treeMode',
-                'reloadOnInsert',
-                'reloadOnUpdate',
-                'allowPkInsert',
+                'tablePrefix',
             ];
 
             foreach ($additionalProperties as $propertyName) {
-                $method = method_exists($table, 'get'.ucfirst($propertyName))
+                $method = method_exists($database, 'get'.ucfirst($propertyName))
                     ? 'get'.ucfirst($propertyName)
                     : 'is'.ucfirst($propertyName);
 
-                $propertyValue = $table->{$method}();
+                $propertyValue = $database->{$method}();
                 if ($propertyValue != '') {
                     if (is_bool($propertyValue)) {
                         $propertyValue = $propertyValue ? 'true' : false;
                     }
-                    $tableElement->setAttribute($propertyName, $propertyValue);
+                    $databaseElement->setAttribute($propertyName, $propertyValue);
                 }
             }
 
-            /** @var ColumnInterface $column */
-            foreach ($table->getColumns() as $column) {
-                $columnElement = $dom->createElement('column');
-                $columnElement->setAttribute('name', $column->getName());
+            /** @var TableInterface $table */
+            foreach ($database->getTables() as $table) {
+                $tableElement = $dom->createElement('table');
+                $tableElement->setAttribute('name', $table->getName());
 
                 $additionalProperties = [
+                    'idMethod',
                     'phpName',
-                    'tableMapName',
-                    'primaryKey',
-                    'required',
-                    'type',
-                    'phpType',
-                    'sqlType',
-                    'size',
-                    'scale',
-                    'defaultValue',
-                    'defaultExpr',
-                    'valueSet',
-                    'autoIncrement',
-                    'lazyLoad',
-                    'description',
-                    'primaryString',
+                    'package',
+                    'schema',
+                    'namespace',
+                    'skipSql',
+                    'abstract',
                     'phpNamingMethod',
-                    'inheritance',
+                    'baseClass',
+                    'description',
+                    'heavyIndexing',
+                    'identifierQuoting',
+                    'readOnly',
+                    'treeMode',
+                    'reloadOnInsert',
+                    'reloadOnUpdate',
+                    'allowPkInsert',
                 ];
 
                 foreach ($additionalProperties as $propertyName) {
-                    $method = method_exists($column, 'get'.ucfirst($propertyName))
+                    $method = method_exists($table, 'get'.ucfirst($propertyName))
                         ? 'get'.ucfirst($propertyName)
                         : 'is'.ucfirst($propertyName);
 
-                    $propertyValue = $column->{$method}();
+                    $propertyValue = $table->{$method}();
                     if ($propertyValue != '') {
                         if (is_bool($propertyValue)) {
                             $propertyValue = $propertyValue ? 'true' : false;
                         }
-                        $columnElement->setAttribute($propertyName, $propertyValue);
+                        $tableElement->setAttribute($propertyName, $propertyValue);
                     }
                 }
 
-                $tableElement->appendChild($columnElement);
+                /** @var ColumnInterface $column */
+                foreach ($table->getColumns() as $column) {
+                    $columnElement = $dom->createElement('column');
+                    $columnElement->setAttribute('name', $column->getName());
+
+                    $additionalProperties = [
+                        'phpName',
+                        'tableMapName',
+                        'primaryKey',
+                        'required',
+                        'type',
+                        'phpType',
+                        'sqlType',
+                        'size',
+                        'scale',
+                        'defaultValue',
+                        'defaultExpr',
+                        'valueSet',
+                        'autoIncrement',
+                        'lazyLoad',
+                        'description',
+                        'primaryString',
+                        'phpNamingMethod',
+                        'inheritance',
+                    ];
+
+                    foreach ($additionalProperties as $propertyName) {
+                        $method = method_exists($column, 'get'.ucfirst($propertyName))
+                            ? 'get'.ucfirst($propertyName)
+                            : 'is'.ucfirst($propertyName);
+
+                        $propertyValue = $column->{$method}();
+                        if ($propertyValue != '') {
+                            if (is_bool($propertyValue)) {
+                                $propertyValue = $propertyValue ? 'true' : false;
+                            }
+                            $columnElement->setAttribute($propertyName, $propertyValue);
+                        }
+                    }
+
+                    $tableElement->appendChild($columnElement);
+                }
+
+                $databaseElement->appendChild($tableElement);
             }
 
-            $databaseElement->appendChild($tableElement);
+            $dom->appendChild($databaseElement);
         }
-
-        $dom->appendChild($databaseElement);
 
         return $dom->save($filepath);
     }
