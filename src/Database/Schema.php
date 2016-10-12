@@ -12,14 +12,14 @@ final class Schema
     private $databases = [];
 
     /**
-     * @param DatabaseInterface $database
+     * @param Database $database
      * @return self
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    final public function addDatabase(DatabaseInterface $database): self
+    final public function addDatabase(Database $database): self
     {
         if (array_key_exists($database->getName(), $this->databases)) {
-            throw new \InvalidArgumentException('Database '.$database->getName().' already added');
+            throw new InvalidArgumentException('Database '.$database->getName().' already added');
         }
 
         $this->databases[$database->getName()] = $database;
@@ -29,19 +29,19 @@ final class Schema
 
     /**
      * @param string $name
-     * @return DatabaseInterface
-     * @throws \InvalidArgumentException
+     * @return Database
+     * @throws InvalidArgumentException
      */
-    final public function getDatabase(string $name): DatabaseInterface
+    final public function getDatabase(string $name): Database
     {
         if (!array_key_exists($name, $this->databases)) {
-            throw new \InvalidArgumentException('Database '.$name.' not added');
+            throw new InvalidArgumentException('Database '.$name.' not added');
         }
 
         return $this->databases[$name];
     }
 
-    final public function getDatabaseByClassName(string $class): DatabaseInterface
+    final public function getDatabaseByClassName(string $class): Database
     {
 
     }
