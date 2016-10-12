@@ -56,6 +56,13 @@ class TableTest extends PHPUnitTestCase
         }
     }
 
+    /**
+     * @covers Table::addForeignKey()
+     * @covers Table::getForeignKeys()
+     * @covers Table::getForeignKey()
+     * @covers Table::hasForeignKey()
+     * @covers Table::removeForeignKey()
+     */
     public function testForeignKeyMethods()
     {
         $table = new ExampleTable();
