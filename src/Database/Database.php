@@ -340,4 +340,38 @@ abstract class Database implements DatabaseInterface
 
         return $this;
     }
+
+    final public function appendToXmlDocument(\DOMDocument $dom): void
+    {
+        $element = $dom->createElement('database');
+        $element->setAttribute('name', $this::getName());
+        $element->setAttribute('defaultIdMethod', $this->getDefaultIdMethod());
+
+        $additionalProperties = [
+            'package',
+            'schema',
+            'namespace',
+            'baseClass',
+            'defaultPhpNamingMethod',
+            'heavyIndexing',
+            'identifierQuoting',
+            'tablePrefix',
+        ];
+
+        foreach ($additionalProperties as $propertyName) {
+            $method = method_exists($this, 'get'.ucfirst($propertyName))
+                ? 'get'.ucfirst($propertyName)
+                : 'is'.ucfirst($propertyName);
+
+            $propertyValue = $this->{$method}();
+            if ($propertyValue != '') {
+                if (is_bool($propertyValue)) {
+                    $propertyValue = $propertyValue ? 'true' : false;
+                }
+                $element->setAttribute($propertyName, $propertyValue);
+            }
+        }
+
+        $dom->appendChild($element);
+    }
 }

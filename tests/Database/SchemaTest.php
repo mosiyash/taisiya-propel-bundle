@@ -5,9 +5,12 @@ namespace Taisiya\PropelBundle\Database;
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleDatabase;
 use Taisiya\PropelBundle\PHPUnitTestCase;
+use Taisiya\PropelBundle\XMLAssertsTrait;
 
 class SchemaTest extends PHPUnitTestCase
 {
+    use XMLAssertsTrait;
+
     protected function setUp()
     {
         parent::setUp();
@@ -77,6 +80,22 @@ class SchemaTest extends PHPUnitTestCase
             $this->assertCount(1, $schema->getDatabases());
             $this->assertTrue($schema->hasDatabase(ExampleDatabase::getName()));
         }
+    }
+
+    /**
+     * @covers Schema::generateOutputXml()
+     */
+    public function testGenerateOutputXml()
+    {
+        $schema = new Schema();
+        $schema->createDatabaseIfNotExists(new ExampleDatabase());
+
+        $xml = $schema->generateOutputXml();exit(var_dump($xml));
+        $this->assertXmlHasProlog($xml);
+
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->loadXML($xml);
+        exit(var_dump($dom));
     }
 
     public function testWriteToFile()

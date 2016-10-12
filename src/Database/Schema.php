@@ -235,4 +235,17 @@ final class Schema
 
         return $dom->save($filepath);
     }
+
+    final public function generateOutputXml(): string
+    {
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true;
+
+        /** @var Database $database */
+        foreach ($this->getDatabases() as $database) {
+            $database->appendToXmlDocument($dom);
+        }
+
+        return $dom->saveXML();
+    }
 }
