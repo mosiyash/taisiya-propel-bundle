@@ -56,7 +56,7 @@ class SchemaTest extends PHPUnitTestCase
 
     public function testWriteToFile()
     {
-//        $schema = SchemaFactory::create();
+        //        $schema = SchemaFactory::create();
 //        $schema->addDatabase(new ExampleDatabase());
 //        $schema->writeToFile($this->getTmpSchemaFilepath());
 

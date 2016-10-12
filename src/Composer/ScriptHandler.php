@@ -8,7 +8,6 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\ParserFactory;
 use Symfony\Component\Finder\Finder;
 use Taisiya\CoreBundle\Composer\ScriptHandler as CoreScriptHandler;
-use Taisiya\PropelBundle\Database\DatabaseFactory;
 use Taisiya\PropelBundle\Database\DefaultDatabase;
 use Taisiya\PropelBundle\Database\SchemaFactory;
 
