@@ -38,16 +38,14 @@ class SchemaTest extends PHPUnitTestCase
         $this->assertTrue($schema->hasDatabase($database->getName()));
     }
 
-    /**
-     * @depends testConstruct
-     */
     public function testWriteToFile()
     {
-        /** @var Schema $schema */
-        $schema = func_get_arg(0);
-        $schema->addDatabase(new DefaultDatabase());
+        $schema = SchemaFactory::create();
+        $schema->writeToFile()
+    }
 
-        $bytes = $schema->writeToFile();
-        $this->assertGreaterThanOrEqual(0, $bytes);
+    private function getTestSchemaFilepath()
+    {
+        return TAISIYA_ROOT
     }
 }

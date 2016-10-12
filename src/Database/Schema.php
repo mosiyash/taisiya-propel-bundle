@@ -58,9 +58,10 @@ final class Schema
 
     /**
      * Writes schema to xml file.
+     * @param string $filepath
      * @return int the number of bytes written or false if an error occurred.
      */
-    final public function writeToFile()
+    final public function writeToFile($filepath = TAISIYA_ROOT.'/schema.xml')
     {
         $database = $this->getDatabase(DefaultDatabase::NAME);
 
@@ -183,6 +184,6 @@ final class Schema
 
         $dom->appendChild($databaseElement);
 
-        return $dom->save(TAISIYA_ROOT.'/schema.xml');
+        return $dom->save($filepath);
     }
 }

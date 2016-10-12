@@ -22,7 +22,8 @@
   "require-dev": {
     "composer/composer": "*",
     "friendsofphp/php-cs-fixer": "*",
-    "phpunit/phpunit": "*"
+    "phpunit/phpunit": "*",
+    "mockery/mockery": "^0.9.5"
   },
   "scripts": {
     "post-install-cmd": [

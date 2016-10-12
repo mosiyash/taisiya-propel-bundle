@@ -14,4 +14,6 @@ npm-debug.log
 /phpunit.xml
 /propel.*
 /schema.*
+/var
+!/var/.placeholder
 /vendor
