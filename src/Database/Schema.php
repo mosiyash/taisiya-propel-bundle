@@ -2,6 +2,8 @@
 
 namespace Taisiya\PropelBundle\Database;
 
+use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
+
 final class Schema
 {
     /**
@@ -39,6 +41,11 @@ final class Schema
         return $this->databases[$name];
     }
 
+    final public function getDatabaseByClassName(string $class): DatabaseInterface
+    {
+
+    }
+
     /**
      * @param string $name
      * @return bool
@@ -46,6 +53,19 @@ final class Schema
     final public function hasDatabase(string $name): bool
     {
         return array_key_exists($name, $this->databases);
+    }
+
+    final public function hasDatabaseByClassName(string $className): bool
+    {
+        if ( ! class_exists($className)) {
+            throw new InvalidArgumentException('Class '.$className.' not exists.');
+        }
+        $reflectionClass = new \ReflectionClass($className);
+        if (!$reflectionClass->isSubclassOf(Database::class)) {
+            throw new InvalidArgumentException('Class must be instance of '.Database::class.'.');
+        }
+        $name = $reflectionClass->getMethod('getName')->invoke($reflectionClass);
+        exit(var_dump($name));
     }
 
     /**

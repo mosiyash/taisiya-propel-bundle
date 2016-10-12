@@ -48,10 +48,10 @@ class SchemaTest extends PHPUnitTestCase
         $schema->addDatabase(DatabaseFactory::create($database));
 
         $this->assertCount(1, $schema->getDatabases());
-        $this->assertArrayHasKey($database->getName(), $schema->getDatabases());
-        $this->assertEquals($database, $schema->getDatabases()[$database->getName()]);
-        $this->assertEquals($database, $schema->getDatabase($database->getName()));
-        $this->assertTrue($schema->hasDatabase($database->getName()));
+        $this->assertArrayHasKey(ExampleDatabase::getName(), $schema->getDatabases());
+        $this->assertEquals($database, $schema->getDatabases()[ExampleDatabase::getName()]);
+        $this->assertEquals($database, $schema->getDatabase(ExampleDatabase::getName()));
+        $this->assertTrue($schema->hasDatabase(ExampleDatabase::getName()));
     }
 
     public function testWriteToFile()

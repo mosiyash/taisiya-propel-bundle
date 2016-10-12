@@ -4,5 +4,5 @@ namespace Taisiya\PropelBundle\Database;
 
 interface DatabaseInterface
 {
-    public function getName(): string;
+    public static function getName(): string;
 }

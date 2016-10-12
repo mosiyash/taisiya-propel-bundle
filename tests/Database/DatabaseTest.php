@@ -32,9 +32,9 @@ class DatabaseTest extends PHPUnitTestCase
         $database->addTable(TableFactory::create($table));
 
         $this->assertCount(1, $database->getTables());
-        $this->assertArrayHasKey($table->getName(), $database->getTables());
-        $this->assertEquals($table, $database->getTables()[$table->getName()]);
-        $this->assertEquals($table, $database->getTable($table->getName()));
-        $this->assertTrue($database->hasTable($table->getName()));
+        $this->assertArrayHasKey(ExampleTable::getName(), $database->getTables());
+        $this->assertEquals($table, $database->getTables()[ExampleTable::getName()]);
+        $this->assertEquals($table, $database->getTable(ExampleTable::getName()));
+        $this->assertTrue($database->hasTable(ExampleTable::getName()));
     }
 }

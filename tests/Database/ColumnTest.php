@@ -33,8 +33,8 @@ class ColumnTest extends PHPUnitTestCase
         $column->addForeignKey($foreignKey);
 
         $this->assertCount(1, $column->getForeignKeys());
-        $this->assertEquals($foreignKey, $column->getForeignKeys()[$foreignKey->getName()]);
-        $this->assertEquals($foreignKey, $column->getForeignKey($foreignKey->getName()));
-        $this->assertTrue($column->hasForeignKey($foreignKey->getName()));
+        $this->assertEquals($foreignKey, $column->getForeignKeys()[ExampleForeignKey::getName()]);
+        $this->assertEquals($foreignKey, $column->getForeignKey(ExampleForeignKey::getName()));
+        $this->assertTrue($column->hasForeignKey(ExampleForeignKey::getName()));
     }
 }

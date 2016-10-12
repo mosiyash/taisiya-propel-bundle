@@ -6,7 +6,7 @@ use Taisiya\PropelBundle\Database\Column;
 
 class IdColumn extends Column
 {
-    public function getName(): string
+    public static function getName(): string
     {
         return 'id';
     }
