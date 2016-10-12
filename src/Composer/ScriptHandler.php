@@ -39,7 +39,7 @@ class ScriptHandler extends CoreScriptHandler
     public static function buildPropelSchema(Event $event): void
     {
         $dispatcher = $event->getComposer()->getEventDispatcher();
-        $schema = SchemaFactory::create()->addDatabase(new DefaultDatabase());
+        $schema = SchemaFactory::create();
         $buildPropelSchemaEvent = new Event(self::EVENT_BUILD_PROPEL_SCHEMA, ['schema' => $schema]);
 
         $finder = (new Finder())
