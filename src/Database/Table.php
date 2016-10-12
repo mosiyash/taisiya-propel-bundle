@@ -20,6 +20,11 @@ abstract class Table implements TableInterface
     private $foreignKeys = [];
 
     /**
+     * @var array
+     */
+    private $indexes = [];
+
+    /**
      * The id method to use for auto-increment columns.
      * @var string
      */
@@ -626,6 +631,62 @@ abstract class Table implements TableInterface
         }
 
         unset($this->foreignKeys[$foreignKey::getName()]);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    final public function getIndexes(): array
+    {
+        return $this->indexes;
+    }
+
+    /**
+     * @param string $name
+     * @return Index
+     */
+    final public function getIndex(string $name): Index
+    {
+        return $this->indexes[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    final public function hasIndex(string $name): bool
+    {
+        return array_key_exists($name, $this->indexes);
+    }
+
+    /**
+     * @param Index $index
+     * @return Table
+     */
+    final public function addIndex(Index $index): Table
+    {
+        if ($this->hasIndex($index::getName())) {
+            throw new InvalidArgumentException('Foreign key '.$index::getName().' already exists in the table '.$this::getName());
+        }
+
+        $this->indexes[$index::getName()] = $index;
+
+        return $this;
+    }
+
+    /**
+     * @param Index $index
+     * @return Table
+     */
+    final public function removeIndex(Index $index): Table
+    {
+        if (!$this->hasIndex($index::getName())) {
+            throw new InvalidArgumentException('Foreign key '.$index::getName().' not exists in the table '.$this::getName());
+        }
+
+        unset($this->indexes[$index::getName()]);
 
         return $this;
     }

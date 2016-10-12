@@ -94,4 +94,40 @@ class TableTest extends PHPUnitTestCase
             $this->assertCount(0, $table->getForeignKeys());
         }
     }
+
+    /**
+     * @covers Table::addForeignKey()
+     * @covers Table::getForeignKeys()
+     * @covers Table::getForeignKey()
+     * @covers Table::hasForeignKey()
+     * @covers Table::removeForeignKey()
+     */
+    public function testIndexMethods()
+    {
+        $table = new ExampleTable();
+        $this->assertCount(0, $table->getIndexes());
+
+        $index = new ExampleTable\ExampleIndex();
+
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $table->addIndex($index);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+            $this->assertCount(1, $table->getIndexes());
+            $this->assertInstanceOf(ExampleTable\ExampleIndex::class, $table->getIndexes()[$index::getName()]);
+            $this->assertInstanceOf(ExampleTable\ExampleIndex::class, $table->getIndex($index::getName()));
+            $this->assertTrue($table->hasIndex($index::getName()));
+        }
+
+        for ($i = 0; $i < 2; $i++) {
+            try {
+                $table->removeIndex($index);
+            } catch (InvalidArgumentException $e) {
+                $this->assertGreaterThan(0, $i);
+            }
+            $this->assertCount(0, $table->getIndexes());
+        }
+    }
 }
