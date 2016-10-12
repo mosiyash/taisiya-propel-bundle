@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\ParserFactory;
 use Symfony\Component\Finder\Finder;
 use Taisiya\CoreBundle\Composer\ScriptHandler as CoreScriptHandler;
-use Taisiya\PropelBundle\Database\DefaultDatabase;
+use Taisiya\PropelBundle\Database\Schema;
 use Taisiya\PropelBundle\Database\SchemaFactory;
 
 defined('TAISIYA_ROOT') || define('TAISIYA_ROOT', dirname(dirname(__DIR__)));
@@ -39,7 +39,7 @@ class ScriptHandler extends CoreScriptHandler
     public static function buildPropelSchema(Event $event): void
     {
         $dispatcher = $event->getComposer()->getEventDispatcher();
-        $schema = SchemaFactory::create();
+        $schema = new Schema();
         $buildPropelSchemaEvent = new Event(self::EVENT_BUILD_PROPEL_SCHEMA, ['schema' => $schema]);
 
         $finder = (new Finder())

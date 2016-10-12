@@ -2,11 +2,11 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable\ForeignIdColumn;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleTable\IdColumn;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleColumn;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignKey;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable;
+use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable\ForeignIdColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\ExampleTable\IdColumn;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class ColumnTest extends PHPUnitTestCase
