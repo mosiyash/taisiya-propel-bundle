@@ -5,4 +5,4 @@ build:
   dependencies:
     before:
       - 'phpenv install -i development 7.1.0RC3'
-      - 'phpenv version 7.1.0RC3'
+      - 'phpenv version 7.1.0 RC3'
