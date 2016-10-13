@@ -51,4 +51,20 @@ final class IndexColumn
 
         return $this;
     }
+
+    /**
+     * @param \DOMDocument $dom
+     * @param \DOMElement $index
+     */
+    public function appendToXmlDocument(\DOMDocument $dom, \DOMElement $index): void
+    {
+        $indexColumn = $dom->createElement($index->tagName.'-column');
+        $indexColumn->setAttribute('name', call_user_func([$this->getColumn(), 'getName']));
+
+        if ($this->size) {
+            $indexColumn->setAttribute('size', $this->size);
+        }
+
+        $index->appendChild($indexColumn);
+    }
 }

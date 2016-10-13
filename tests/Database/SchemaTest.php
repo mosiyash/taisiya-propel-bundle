@@ -3,6 +3,7 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
+use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable;
 use Taisiya\PropelBundle\Database\TestDatabase\TestDatabase;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 use Taisiya\PropelBundle\XMLAssertsTrait;
@@ -88,17 +89,32 @@ class SchemaTest extends PHPUnitTestCase
     public function testGenerateOutputXml()
     {
         $schema = new Schema();
-        $schema->createDatabaseIfNotExists(new TestDatabase());
 
-        $schema
+        $database = $schema->createDatabaseIfNotExists(new TestDatabase())
             ->getDatabase(TestDatabase::getName());
+
+        $firstTable = $database->createTableIfNotExists(new FirstTestTable())
+            ->getTable(FirstTestTable::getName())
+            ->createColumnIfNotExists(new FirstTestTable\IdColumn())
+            ->createColumnIfNotExists(new FirstTestTable\SecondColumn())
+            ->createColumnIfNotExists(new FirstTestTable\ThirdColumn());
+
+        $firstTableIndex = $firstTable->addIndex(new FirstTestTable\ExampleIndex())
+            ->getIndex(FirstTestTable\ExampleIndex::getName())
+            ->addColumnIfNotExists(new FirstTestTable\IdColumn())
+            ->addColumnIfNotExists(new FirstTestTable\SecondColumn(), 32);
+
+        $firstTableUniqueIndex = $firstTable->addUnique(new FirstTestTable\ExampleUniqueIndex())
+            ->getUnique(FirstTestTable\ExampleUniqueIndex::getName())
+            ->addColumnIfNotExists(new FirstTestTable\IdColumn(), 1)
+            ->addColumnIfNotExists(new FirstTestTable\SecondColumn(), 1);
 
         $xml = $schema->generateOutputXml();
         $this->assertXmlHasProlog($xml);
 
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->loadXML($xml);
-        //exit(var_dump($dom));
+        exit(var_dump($xml));
     }
 
     public function testWriteToFile()

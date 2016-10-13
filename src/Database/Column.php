@@ -600,4 +600,51 @@ abstract class Column implements ColumnInterface
         $this->inheritance = $inheritance;
         return $this;
     }
+
+    /**
+     * @param \DOMDocument $dom
+     * @param \DOMElement $table
+     */
+    final public function appendToXmlDocument(\DOMDocument $dom, \DOMElement $table): void
+    {
+        $column = $dom->createElement('column');
+        $column->setAttribute('name', $this::getName());
+
+        $additionalProperties = [
+            'phpName',
+            'tableMapName',
+            'primaryKey',
+            'required',
+            'type',
+            'phpType',
+            'sqlType',
+            'size',
+            'scale',
+            'defaultValue',
+            'defaultExpr',
+            'valueSet',
+            'autoIncrement',
+            'lazyLoad',
+            'description',
+            'primaryString',
+            'phpNamingMethod',
+            'inheritance',
+        ];
+
+        foreach ($additionalProperties as $propertyName) {
+            $method = method_exists($this, 'get'.ucfirst($propertyName))
+                ? 'get'.ucfirst($propertyName)
+                : 'is'.ucfirst($propertyName);
+
+            $propertyValue = $this->{$method}();
+            if ($propertyValue != '') {
+                if (is_bool($propertyValue)) {
+                    $propertyValue = $propertyValue ? 'true' : false;
+                }
+                $column->setAttribute($propertyName, $propertyValue);
+            }
+        }
+
+        $table->appendChild($column);
+    }
 }

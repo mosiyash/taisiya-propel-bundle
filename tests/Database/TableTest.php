@@ -3,10 +3,10 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
-use Taisiya\PropelBundle\Database\TestDatabase\TestColumn;
-use Taisiya\PropelBundle\Database\TestDatabase\TestForeignKey;
 use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable;
 use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable;
+use Taisiya\PropelBundle\Database\TestDatabase\TestColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\TestForeignKey;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class TableTest extends PHPUnitTestCase

@@ -17,8 +17,7 @@
   },
   "require": {
     "taisiya/core-bundle": "dev-master",
-    "propel/propel": "^2.0",
-    "league/fractal": "^0.14"
+    "propel/propel": "^2.0"
   },
   "require-dev": {
     "composer/composer": "*",

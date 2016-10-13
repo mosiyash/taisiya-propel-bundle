@@ -782,17 +782,32 @@ abstract class Table implements TableInterface
         ];
 
         foreach ($additionalProperties as $propertyName) {
-            $method = method_exists($table, 'get'.ucfirst($propertyName))
+            $method = method_exists($this, 'get'.ucfirst($propertyName))
                 ? 'get'.ucfirst($propertyName)
                 : 'is'.ucfirst($propertyName);
 
-            $propertyValue = $table->{$method}();
+            $propertyValue = $this->{$method}();
             if ($propertyValue != '') {
                 if (is_bool($propertyValue)) {
                     $propertyValue = $propertyValue ? 'true' : false;
                 }
                 $table->setAttribute($propertyName, $propertyValue);
             }
+        }
+
+        /** @var Column $column */
+        foreach ($this->getColumns() as $column) {
+            $column->appendToXmlDocument($dom, $table);
+        }
+
+        /** @var Index $index */
+        foreach ($this->getIndexes() as $index) {
+            $index->appendToXmlDocument($dom, $table);
+        }
+
+        /** @var uniqueIndex $uniqueIndex */
+        foreach ($this->getUniques() as $uniqueIndex) {
+            $uniqueIndex->appendToXmlDocument($dom, $table);
         }
 
         $database->appendChild($table);
