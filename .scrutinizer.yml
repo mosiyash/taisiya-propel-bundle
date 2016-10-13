@@ -1,2 +1,7 @@
 filter:
-    excluded_paths: [tests, var, vendor]
+  excluded_paths:
+    - 'app/*'
+    - 'tests/*'
+
+checks:
+  php: true
