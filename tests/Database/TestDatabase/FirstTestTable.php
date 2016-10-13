@@ -11,6 +11,6 @@ class FirstTestTable extends Table
      */
     public static function getName(): string
     {
-        return 'example';
+        return 'first';
     }
 }

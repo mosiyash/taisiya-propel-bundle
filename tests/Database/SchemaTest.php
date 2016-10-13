@@ -4,6 +4,7 @@ namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
 use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable;
+use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable;
 use Taisiya\PropelBundle\Database\TestDatabase\TestDatabase;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 use Taisiya\PropelBundle\XMLAssertsTrait;
@@ -11,22 +12,6 @@ use Taisiya\PropelBundle\XMLAssertsTrait;
 class SchemaTest extends PHPUnitTestCase
 {
     use XMLAssertsTrait;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        if (file_exists($this->getTmpSchemaFilepath())) {
-            unlink($this->getTmpSchemaFilepath());
-        }
-    }
-
-    protected function tearDown()
-    {
-        if (file_exists($this->getTmpSchemaFilepath())) {
-            unlink($this->getTmpSchemaFilepath());
-        }
-    }
 
     /**
      * @return Schema
@@ -109,23 +94,22 @@ class SchemaTest extends PHPUnitTestCase
             ->addColumnIfNotExists(new FirstTestTable\IdColumn(), 1)
             ->addColumnIfNotExists(new FirstTestTable\SecondColumn(), 1);
 
+        $secondTable = $database->createTableIfNotExists(new SecondTestTable())
+            ->getTable(SecondTestTable::getName());
+
         $xml = $schema->generateOutputXml();
         $this->assertXmlHasProlog($xml);
 
-        $dom = new \DOMDocument('1.0', 'UTF-8');
-        $dom->loadXML($xml);
-        //exit(var_dump($xml));
-    }
+//        $dom = new \DOMDocument('1.0', 'UTF-8');
+//        $dom->loadXML($xml);
+//        exit(var_dump($xml));
 
-    /**
-     * @return string
-     */
-    private function getTmpSchemaFilepath()
-    {
-        $filepath = TAISIYA_ROOT.'/var/tmp/schema.xml';
-        if (!file_exists(dirname($filepath))) {
-            mkdir(dirname($filepath), 0777, true);
-        }
-        return $filepath;
+        $this->assertXmlHasElements($xml, '/database', 1);
+        $this->assertXmlHasElements($xml, '/database/table', 2);
+        $this->assertXmlHasElements($xml, '/database/table[@name="first"]/column', 3);
+        $this->assertXmlHasElements($xml, '/database/table[@name="first"]/index', 1);
+        $this->assertXmlHasElements($xml, '/database/table[@name="first"]/index/index-column', 2);
+        $this->assertXmlHasElements($xml, '/database/table[@name="first"]/unique', 1);
+        $this->assertXmlHasElements($xml, '/database/table[@name="first"]/unique/unique-column', 2);
     }
 }
