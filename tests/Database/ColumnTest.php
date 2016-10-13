@@ -12,7 +12,10 @@ use Taisiya\PropelBundle\PHPUnitTestCase;
 class ColumnTest extends PHPUnitTestCase
 {
     /**
-     * @depends testConstruct
+     * @covers Column::getForeignKeys
+     * @covers Column::getForeignKey
+     * @covers Column::hasForeignKey
+     * @covers Column::addForeignKey
      */
     public function testForeignKeys()
     {
