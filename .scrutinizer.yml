@@ -1,5 +1,13 @@
 filter:
-    excluded_paths:
-        - tests/*
+  excluded_paths:
+    - tests/*
 
-build: false
+build:
+  dependencies:
+    before:
+      - 'curl -L http://git.io/phpenv-installer | bash'
+      - 'export PATH=$PATHL:~/.phpenv/bin'
+      - 'phpenv install -i development 7.1.0RC3'
+  environment:
+    php:
+      version: 7.1
