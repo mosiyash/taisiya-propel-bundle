@@ -3,7 +3,7 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
-use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable\ExampleIndex;
+use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable\TestIndex;
 use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable\IdColumn;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
@@ -18,7 +18,7 @@ class IndexTest extends PHPUnitTestCase
      */
     public function testAll()
     {
-        $index = new ExampleIndex();
+        $index = new TestIndex();
 
         for ($i = 0; $i < 2; $i++) {
             try {

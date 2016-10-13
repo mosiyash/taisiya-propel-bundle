@@ -99,13 +99,13 @@ class SchemaTest extends PHPUnitTestCase
             ->createColumnIfNotExists(new FirstTestTable\SecondColumn())
             ->createColumnIfNotExists(new FirstTestTable\ThirdColumn());
 
-        $firstTableIndex = $firstTable->addIndex(new FirstTestTable\ExampleIndex())
-            ->getIndex(FirstTestTable\ExampleIndex::getName())
+        $firstTableIndex = $firstTable->addIndex(new FirstTestTable\TestIndex())
+            ->getIndex(FirstTestTable\TestIndex::getName())
             ->addColumnIfNotExists(new FirstTestTable\IdColumn())
             ->addColumnIfNotExists(new FirstTestTable\SecondColumn(), 32);
 
-        $firstTableUniqueIndex = $firstTable->addUnique(new FirstTestTable\ExampleUniqueIndex())
-            ->getUnique(FirstTestTable\ExampleUniqueIndex::getName())
+        $firstTableUniqueIndex = $firstTable->addUnique(new FirstTestTable\TestUniqueIndex())
+            ->getUnique(FirstTestTable\TestUniqueIndex::getName())
             ->addColumnIfNotExists(new FirstTestTable\IdColumn(), 1)
             ->addColumnIfNotExists(new FirstTestTable\SecondColumn(), 1);
 
@@ -114,16 +114,7 @@ class SchemaTest extends PHPUnitTestCase
 
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->loadXML($xml);
-        exit(var_dump($xml));
-    }
-
-    public function testWriteToFile()
-    {
-        //        $schema = SchemaFactory::create();
-//        $schema->createDatabase(new TestDatabase());
-//        $schema->writeToFile($this->getTmpSchemaFilepath());
-
-        // TODO: write tests
+        //exit(var_dump($xml));
     }
 
     /**

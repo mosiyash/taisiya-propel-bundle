@@ -107,7 +107,7 @@ class TableTest extends PHPUnitTestCase
         $table = new FirstTestTable();
         $this->assertCount(0, $table->getIndexes());
 
-        $index = new FirstTestTable\ExampleIndex();
+        $index = new FirstTestTable\TestIndex();
 
         for ($i = 0; $i < 2; $i++) {
             try {
@@ -116,8 +116,8 @@ class TableTest extends PHPUnitTestCase
                 $this->assertGreaterThan(0, $i);
             }
             $this->assertCount(1, $table->getIndexes());
-            $this->assertInstanceOf(FirstTestTable\ExampleIndex::class, $table->getIndexes()[$index::getName()]);
-            $this->assertInstanceOf(FirstTestTable\ExampleIndex::class, $table->getIndex($index::getName()));
+            $this->assertInstanceOf(FirstTestTable\TestIndex::class, $table->getIndexes()[$index::getName()]);
+            $this->assertInstanceOf(FirstTestTable\TestIndex::class, $table->getIndex($index::getName()));
             $this->assertTrue($table->hasIndex($index::getName()));
         }
 
@@ -143,7 +143,7 @@ class TableTest extends PHPUnitTestCase
         $table = new FirstTestTable();
         $this->assertCount(0, $table->getUniques());
 
-        $index = new FirstTestTable\ExampleUniqueIndex();
+        $index = new FirstTestTable\TestUniqueIndex();
 
         for ($i = 0; $i < 2; $i++) {
             try {
@@ -152,8 +152,8 @@ class TableTest extends PHPUnitTestCase
                 $this->assertGreaterThan(0, $i);
             }
             $this->assertCount(1, $table->getUniques());
-            $this->assertInstanceOf(FirstTestTable\ExampleUniqueIndex::class, $table->getUniques()[$index::getName()]);
-            $this->assertInstanceOf(FirstTestTable\ExampleUniqueIndex::class, $table->getUnique($index::getName()));
+            $this->assertInstanceOf(FirstTestTable\TestUniqueIndex::class, $table->getUniques()[$index::getName()]);
+            $this->assertInstanceOf(FirstTestTable\TestUniqueIndex::class, $table->getUnique($index::getName()));
             $this->assertTrue($table->hasUnique($index::getName()));
         }
 
