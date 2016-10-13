@@ -6,8 +6,6 @@ build:
   dependencies:
     before:
       - 'curl -L http://git.io/phpenv-installer | bash'
-      - 'export PATH=$PATHL:~/.phpenv/bin'
+      - 'export PATH=$PATHL:~/.phpenv/bin:~/.phpenv/shims'
       - 'phpenv install -i development 7.1.0RC3'
-  environment:
-    php:
-      version: 7.1
+      - 'phpenv version 7.1.0'
