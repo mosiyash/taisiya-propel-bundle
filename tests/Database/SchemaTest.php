@@ -14,28 +14,16 @@ class SchemaTest extends PHPUnitTestCase
     use XMLAssertsTrait;
 
     /**
-     * @return Schema
-     */
-    public function testConstruct()
-    {
-        $schema = new Schema();
-        $this->assertInstanceOf(Schema::class, $schema);
-        return $schema;
-    }
-
-    /**
-     * @depends testConstruct
-     * @covers Schema::createDatabase()
-     * @covers Schema::getDatabases()
-     * @covers Schema::getDatabase()
-     * @covers Schema::hasDatabase()
-     * @covers Schema::removeDatabase()
-     * @covers Schema::createDatabaseIfNotExists()
+     * @covers Schema::createDatabase
+     * @covers Schema::getDatabases
+     * @covers Schema::getDatabase
+     * @covers Schema::hasDatabase
+     * @covers Schema::removeDatabase
+     * @covers Schema::createDatabaseIfNotExists
      */
     public function testCreateDatabase()
     {
-        /** @var Schema $schema */
-        $schema = func_get_arg(0);
+        $schema = new Schema();
         $this->assertCount(0, $schema->getDatabases());
 
         $database = new TestDatabase();
@@ -69,7 +57,12 @@ class SchemaTest extends PHPUnitTestCase
     }
 
     /**
-     * @covers Schema::generateOutputXml()
+     * @covers Schema::generateOutputXml
+     * @covers Database::appendToXmlDocument
+     * @covers Table::appendToXmlDocument
+     * @covers Column::appendToXmlDocument
+     * @covers Index::appendToXmlDocument
+     * @covers IndexColumn::appendToXmlDocument
      */
     public function testGenerateOutputXml()
     {
@@ -99,10 +92,6 @@ class SchemaTest extends PHPUnitTestCase
 
         $xml = $schema->generateOutputXml();
         $this->assertXmlHasProlog($xml);
-
-//        $dom = new \DOMDocument('1.0', 'UTF-8');
-//        $dom->loadXML($xml);
-//        exit(var_dump($xml));
 
         $this->assertXmlHasElements($xml, '/database', 1);
         $this->assertXmlHasElements($xml, '/database/table', 2);

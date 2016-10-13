@@ -10,28 +10,16 @@ use Taisiya\PropelBundle\PHPUnitTestCase;
 class DatabaseTest extends PHPUnitTestCase
 {
     /**
-     * @return Database
-     */
-    public function testConstruct()
-    {
-        $database = new TestDatabase();
-        $this->assertInstanceOf(Database::class, $database);
-        return $database;
-    }
-
-    /**
-     * @depends testConstruct
-     * @covers Database::createTable()
-     * @covers Database::createTableIfNotExists()
-     * @covers Database::getTables()
-     * @covers Database::getTable()
-     * @covers Database::hasTable()
-     * @covers Database::removeTable()
+     * @covers Database::createTable
+     * @covers Database::createTableIfNotExists
+     * @covers Database::getTables
+     * @covers Database::getTable
+     * @covers Database::hasTable
+     * @covers Database::removeTable
      */
     public function testTables()
     {
-        /** @var Database $database */
-        $database = func_get_arg(0);
+        $database = new TestDatabase();
         $this->assertCount(0, $database->getTables());
 
         $table = new FirstTestTable();

@@ -10,11 +10,11 @@ use Taisiya\PropelBundle\PHPUnitTestCase;
 class IndexTest extends PHPUnitTestCase
 {
     /**
-     * @covers Index::addColumn()
-     * @covers Index::addColumnIfNotExists()
-     * @covers Index::getColumns()
-     * @covers Index::findIndexColumnByName()
-     * @covers Index::removeColumn()
+     * @covers Index::addColumn
+     * @covers Index::addColumnIfNotExists
+     * @covers Index::getColumns
+     * @covers Index::findIndexColumnByName
+     * @covers Index::removeColumn
      */
     public function testAll()
     {

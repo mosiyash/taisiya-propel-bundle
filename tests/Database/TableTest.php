@@ -11,14 +11,13 @@ use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class TableTest extends PHPUnitTestCase
 {
-
     /**
-     * @covers Table::createColumn()
-     * @covers Table::createColumnIfNotExists()
-     * @covers Table::getColumns()
-     * @covers Table::getColumn()
-     * @covers Table::hasColumn()
-     * @covers Table::removeColumn()
+     * @covers Table::createColumn
+     * @covers Table::createColumnIfNotExists
+     * @covers Table::getColumns
+     * @covers Table::getColumn
+     * @covers Table::hasColumn
+     * @covers Table::removeColumn
      */
     public function testColumnMethods()
     {
@@ -57,11 +56,11 @@ class TableTest extends PHPUnitTestCase
     }
 
     /**
-     * @covers Table::addForeignKey()
-     * @covers Table::getForeignKeys()
-     * @covers Table::getForeignKey()
-     * @covers Table::hasForeignKey()
-     * @covers Table::removeForeignKey()
+     * @covers Table::addForeignKey
+     * @covers Table::getForeignKeys
+     * @covers Table::getForeignKey
+     * @covers Table::hasForeignKey
+     * @covers Table::removeForeignKey
      */
     public function testForeignKeyMethods()
     {
@@ -96,11 +95,11 @@ class TableTest extends PHPUnitTestCase
     }
 
     /**
-     * @covers Table::addIndex()
-     * @covers Table::getIndexes()
-     * @covers Table::getIndex()
-     * @covers Table::hasIndex()
-     * @covers Table::removeIndex()
+     * @covers Table::addIndex
+     * @covers Table::getIndexes
+     * @covers Table::getIndex
+     * @covers Table::hasIndex
+     * @covers Table::removeIndex
      */
     public function testIndexMethods()
     {
@@ -132,11 +131,11 @@ class TableTest extends PHPUnitTestCase
     }
 
     /**
-     * @covers Table::addUnique()
-     * @covers Table::getUniques()
-     * @covers Table::getUnique()
-     * @covers Table::hasUnique()
-     * @covers Table::removeUnique()
+     * @covers Table::addUnique
+     * @covers Table::getUniques
+     * @covers Table::getUnique
+     * @covers Table::hasUnique
+     * @covers Table::removeUnique
      */
     public function testUniqueIndexMethods()
     {

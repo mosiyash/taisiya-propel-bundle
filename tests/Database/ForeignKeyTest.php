@@ -11,8 +11,8 @@ use Taisiya\PropelBundle\PHPUnitTestCase;
 class ForeignKeyTest extends PHPUnitTestCase
 {
     /**
-     * @covers ForeignKey::getForeignTable()
-     * @covers ForeignKey::getForeignKeyReference()
+     * @covers ForeignKey::getForeignTable
+     * @covers ForeignKey::getForeignKeyReference
      * @return TestForeignKey
      */
     public function testConstruct()

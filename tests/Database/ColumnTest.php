@@ -12,22 +12,11 @@ use Taisiya\PropelBundle\PHPUnitTestCase;
 class ColumnTest extends PHPUnitTestCase
 {
     /**
-     * @return Column
-     */
-    public function testConstruct()
-    {
-        $column = new TestColumn();
-        $this->assertInstanceOf(Column::class, $column);
-        return $column;
-    }
-
-    /**
      * @depends testConstruct
      */
     public function testForeignKeys()
     {
-        /** @var TestColumn $column */
-        $column = func_get_arg(0);
+        $column = new TestColumn();
 
         $foreignKey = new TestForeignKey(
             new SecondTestTable(),
