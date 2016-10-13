@@ -2,14 +2,13 @@ language: php
 
 matrix:
   include:
-      env: COLLECT_COVERAGE=true
     - php: 7.1
 
 install:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - if [[ "$COLLECT_COVERAGE" == "true" ]]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
+  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - if [[ "$COLLECT_COVERAGE" == "true" ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  - wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover
