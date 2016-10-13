@@ -9,7 +9,6 @@ use PhpParser\ParserFactory;
 use Symfony\Component\Finder\Finder;
 use Taisiya\CoreBundle\Composer\ScriptHandler as CoreScriptHandler;
 use Taisiya\PropelBundle\Database\Schema;
-use Taisiya\PropelBundle\Database\SchemaFactory;
 
 defined('TAISIYA_ROOT') || define('TAISIYA_ROOT', dirname(dirname(__DIR__)));
 
