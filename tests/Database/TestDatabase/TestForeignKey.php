@@ -2,9 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database\TestDatabase;
 
-use Taisiya\PropelBundle\Database\Column;
+use Taisiya\PropelBundle\Database\ForeignKey;
 
-class ExampleColumn extends Column
+class TestForeignKey extends ForeignKey
 {
     /**
      * @return string

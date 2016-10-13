@@ -2,9 +2,9 @@
 
 namespace Taisiya\PropelBundle\Database\TestDatabase;
 
-use Taisiya\PropelBundle\Database\Database;
+use Taisiya\PropelBundle\Database\Column;
 
-class ExampleDatabase extends Database
+class TestColumn extends Column
 {
     /**
      * @return string

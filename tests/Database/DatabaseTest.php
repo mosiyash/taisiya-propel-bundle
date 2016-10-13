@@ -3,7 +3,7 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleDatabase;
+use Taisiya\PropelBundle\Database\TestDatabase\TestDatabase;
 use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
@@ -14,7 +14,7 @@ class DatabaseTest extends PHPUnitTestCase
      */
     public function testConstruct()
     {
-        $database = new ExampleDatabase();
+        $database = new TestDatabase();
         $this->assertInstanceOf(Database::class, $database);
         return $database;
     }

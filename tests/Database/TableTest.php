@@ -3,8 +3,8 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleColumn;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignKey;
+use Taisiya\PropelBundle\Database\TestDatabase\TestColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\TestForeignKey;
 use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable;
 use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable;
 use Taisiya\PropelBundle\PHPUnitTestCase;
@@ -25,7 +25,7 @@ class TableTest extends PHPUnitTestCase
         $table = new FirstTestTable();
         $this->assertCount(0, $table->getColumns());
 
-        $column = new ExampleColumn();
+        $column = new TestColumn();
 
         for ($i = 0; $i < 2; $i++) {
             try {
@@ -35,9 +35,9 @@ class TableTest extends PHPUnitTestCase
             }
 
             $this->assertCount(1, $table->getColumns());
-            $this->assertEquals($column, $table->getColumns()[ExampleColumn::getName()]);
-            $this->assertEquals($column, $table->getColumn(ExampleColumn::getName()));
-            $this->assertTrue($table->hasColumn(ExampleColumn::getName()));
+            $this->assertEquals($column, $table->getColumns()[TestColumn::getName()]);
+            $this->assertEquals($column, $table->getColumn(TestColumn::getName()));
+            $this->assertTrue($table->hasColumn(TestColumn::getName()));
         }
 
         for ($i = 0; $i < 2; $i++) {
@@ -52,7 +52,7 @@ class TableTest extends PHPUnitTestCase
         for ($i = 0; $i < 2; $i++) {
             $table->createColumnIfNotExists($column);
             $this->assertCount(1, $table->getColumns());
-            $this->assertEquals($column, $table->getColumn(ExampleColumn::getName()));
+            $this->assertEquals($column, $table->getColumn(TestColumn::getName()));
         }
     }
 
@@ -68,7 +68,7 @@ class TableTest extends PHPUnitTestCase
         $table = new FirstTestTable();
         $this->assertCount(0, $table->getForeignKeys());
 
-        $foreignKey = new ExampleForeignKey(
+        $foreignKey = new TestForeignKey(
             new SecondTestTable(),
             new ForeignKeyReference(new FirstTestTable\IdColumn(), new SecondTestTable\FirstTestTableId())
         );
@@ -80,8 +80,8 @@ class TableTest extends PHPUnitTestCase
                 $this->assertGreaterThan(0, $i);
             }
             $this->assertCount(1, $table->getForeignKeys());
-            $this->assertInstanceOf(ExampleForeignKey::class, $table->getForeignKeys()[$foreignKey::getName()]);
-            $this->assertInstanceOf(ExampleForeignKey::class, $table->getForeignKey($foreignKey::getName()));
+            $this->assertInstanceOf(TestForeignKey::class, $table->getForeignKeys()[$foreignKey::getName()]);
+            $this->assertInstanceOf(TestForeignKey::class, $table->getForeignKey($foreignKey::getName()));
             $this->assertTrue($table->hasForeignKey($foreignKey::getName()));
         }
 

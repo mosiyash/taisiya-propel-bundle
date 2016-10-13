@@ -2,8 +2,8 @@
 
 namespace Taisiya\PropelBundle\Database;
 
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleColumn;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignKey;
+use Taisiya\PropelBundle\Database\TestDatabase\TestColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\TestForeignKey;
 use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable\IdColumn;
 use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable;
 use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable\FirstTestTableId;
@@ -16,7 +16,7 @@ class ColumnTest extends PHPUnitTestCase
      */
     public function testConstruct()
     {
-        $column = new ExampleColumn();
+        $column = new TestColumn();
         $this->assertInstanceOf(Column::class, $column);
         return $column;
     }
@@ -26,18 +26,18 @@ class ColumnTest extends PHPUnitTestCase
      */
     public function testForeignKeys()
     {
-        /** @var ExampleColumn $column */
+        /** @var TestColumn $column */
         $column = func_get_arg(0);
 
-        $foreignKey = new ExampleForeignKey(
+        $foreignKey = new TestForeignKey(
             new SecondTestTable(),
             new ForeignKeyReference(new IdColumn(), new FirstTestTableId())
         );
         $column->addForeignKey($foreignKey);
 
         $this->assertCount(1, $column->getForeignKeys());
-        $this->assertEquals($foreignKey, $column->getForeignKeys()[ExampleForeignKey::getName()]);
-        $this->assertEquals($foreignKey, $column->getForeignKey(ExampleForeignKey::getName()));
-        $this->assertTrue($column->hasForeignKey(ExampleForeignKey::getName()));
+        $this->assertEquals($foreignKey, $column->getForeignKeys()[TestForeignKey::getName()]);
+        $this->assertEquals($foreignKey, $column->getForeignKey(TestForeignKey::getName()));
+        $this->assertTrue($column->hasForeignKey(TestForeignKey::getName()));
     }
 }

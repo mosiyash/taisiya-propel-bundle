@@ -3,7 +3,7 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleDatabase;
+use Taisiya\PropelBundle\Database\TestDatabase\TestDatabase;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 use Taisiya\PropelBundle\XMLAssertsTrait;
 
@@ -52,7 +52,7 @@ class SchemaTest extends PHPUnitTestCase
         $schema = func_get_arg(0);
         $this->assertCount(0, $schema->getDatabases());
 
-        $database = new ExampleDatabase();
+        $database = new TestDatabase();
 
         for ($i = 0; $i < 2; $i++) {
             try {
@@ -61,9 +61,9 @@ class SchemaTest extends PHPUnitTestCase
                 $this->assertGreaterThan(0, $i);
             }
             $this->assertCount(1, $schema->getDatabases());
-            $this->assertEquals($database, $schema->getDatabases()[ExampleDatabase::getName()]);
-            $this->assertEquals($database, $schema->getDatabase(ExampleDatabase::getName()));
-            $this->assertTrue($schema->hasDatabase(ExampleDatabase::getName()));
+            $this->assertEquals($database, $schema->getDatabases()[TestDatabase::getName()]);
+            $this->assertEquals($database, $schema->getDatabase(TestDatabase::getName()));
+            $this->assertTrue($schema->hasDatabase(TestDatabase::getName()));
         }
 
         for ($i = 0; $i < 2; $i++) {
@@ -78,7 +78,7 @@ class SchemaTest extends PHPUnitTestCase
         for ($i = 0; $i < 2; $i++) {
             $schema->createDatabaseIfNotExists($database);
             $this->assertCount(1, $schema->getDatabases());
-            $this->assertTrue($schema->hasDatabase(ExampleDatabase::getName()));
+            $this->assertTrue($schema->hasDatabase(TestDatabase::getName()));
         }
     }
 
@@ -88,9 +88,10 @@ class SchemaTest extends PHPUnitTestCase
     public function testGenerateOutputXml()
     {
         $schema = new Schema();
-        $schema->createDatabaseIfNotExists(new ExampleDatabase());
+        $schema->createDatabaseIfNotExists(new TestDatabase());
 
-        $schema->getDatabase(ExampleDatabase::getName());
+        $schema
+            ->getDatabase(TestDatabase::getName());
 
         $xml = $schema->generateOutputXml();
         $this->assertXmlHasProlog($xml);
@@ -103,7 +104,7 @@ class SchemaTest extends PHPUnitTestCase
     public function testWriteToFile()
     {
         //        $schema = SchemaFactory::create();
-//        $schema->createDatabase(new ExampleDatabase());
+//        $schema->createDatabase(new TestDatabase());
 //        $schema->writeToFile($this->getTmpSchemaFilepath());
 
         // TODO: write tests
