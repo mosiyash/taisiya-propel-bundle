@@ -3,9 +3,9 @@
 namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignKey;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable\ForeignIdColumn;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleTable\IdColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable\IdColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable;
+use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable\FirstTestTableId;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class ForeignKeyTest extends PHPUnitTestCase
@@ -18,8 +18,8 @@ class ForeignKeyTest extends PHPUnitTestCase
     public function testConstruct()
     {
         $foreignKey = new ExampleForeignKey(
-            new ExampleForeignTable(),
-            new ForeignKeyReference(new IdColumn(), new ForeignIdColumn())
+            new SecondTestTable(),
+            new ForeignKeyReference(new IdColumn(), new FirstTestTableId())
         );
         $this->assertInstanceOf(ForeignKey::class, $foreignKey);
         $this->assertInstanceOf(Table::class, $foreignKey->getForeignTable());

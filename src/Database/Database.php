@@ -341,11 +341,14 @@ abstract class Database implements DatabaseInterface
         return $this;
     }
 
+    /**
+     * @param \DOMDocument $dom
+     */
     final public function appendToXmlDocument(\DOMDocument $dom): void
     {
-        $element = $dom->createElement('database');
-        $element->setAttribute('name', $this::getName());
-        $element->setAttribute('defaultIdMethod', $this->getDefaultIdMethod());
+        $database = $dom->createElement('database');
+        $database->setAttribute('name', $this::getName());
+        $database->setAttribute('defaultIdMethod', $this->getDefaultIdMethod());
 
         $additionalProperties = [
             'package',
@@ -368,10 +371,15 @@ abstract class Database implements DatabaseInterface
                 if (is_bool($propertyValue)) {
                     $propertyValue = $propertyValue ? 'true' : false;
                 }
-                $element->setAttribute($propertyName, $propertyValue);
+                $database->setAttribute($propertyName, $propertyValue);
             }
         }
 
-        $dom->appendChild($element);
+        /** @var Table $table */
+        foreach ($this->getTables() as $table) {
+            $table->appendToXmlDocument($dom, $database);
+        }
+
+        $dom->appendChild($database);
     }
 }

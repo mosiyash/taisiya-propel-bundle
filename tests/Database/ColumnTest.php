@@ -4,9 +4,9 @@ namespace Taisiya\PropelBundle\Database;
 
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleColumn;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignKey;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable\ForeignIdColumn;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleTable\IdColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable\IdColumn;
+use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable;
+use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable\FirstTestTableId;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class ColumnTest extends PHPUnitTestCase
@@ -30,8 +30,8 @@ class ColumnTest extends PHPUnitTestCase
         $column = func_get_arg(0);
 
         $foreignKey = new ExampleForeignKey(
-            new ExampleForeignTable(),
-            new ForeignKeyReference(new IdColumn(), new ForeignIdColumn())
+            new SecondTestTable(),
+            new ForeignKeyReference(new IdColumn(), new FirstTestTableId())
         );
         $column->addForeignKey($foreignKey);
 

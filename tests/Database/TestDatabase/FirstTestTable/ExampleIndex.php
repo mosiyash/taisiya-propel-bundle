@@ -1,6 +1,6 @@
 <?php
 
-namespace Taisiya\PropelBundle\Database\TestDatabase\ExampleTable;
+namespace Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable;
 
 use Taisiya\PropelBundle\Database\Index;
 

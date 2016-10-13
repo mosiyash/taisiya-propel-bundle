@@ -5,8 +5,8 @@ namespace Taisiya\PropelBundle\Database;
 use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleColumn;
 use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignKey;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleForeignTable;
-use Taisiya\PropelBundle\Database\TestDatabase\ExampleTable;
+use Taisiya\PropelBundle\Database\TestDatabase\FirstTestTable;
+use Taisiya\PropelBundle\Database\TestDatabase\SecondTestTable;
 use Taisiya\PropelBundle\PHPUnitTestCase;
 
 class TableTest extends PHPUnitTestCase
@@ -22,7 +22,7 @@ class TableTest extends PHPUnitTestCase
      */
     public function testColumnMethods()
     {
-        $table = new ExampleTable();
+        $table = new FirstTestTable();
         $this->assertCount(0, $table->getColumns());
 
         $column = new ExampleColumn();
@@ -65,12 +65,12 @@ class TableTest extends PHPUnitTestCase
      */
     public function testForeignKeyMethods()
     {
-        $table = new ExampleTable();
+        $table = new FirstTestTable();
         $this->assertCount(0, $table->getForeignKeys());
 
         $foreignKey = new ExampleForeignKey(
-            new ExampleForeignTable(),
-            new ForeignKeyReference(new ExampleTable\IdColumn(), new ExampleForeignTable\ForeignIdColumn())
+            new SecondTestTable(),
+            new ForeignKeyReference(new FirstTestTable\IdColumn(), new SecondTestTable\FirstTestTableId())
         );
 
         for ($i = 0; $i < 2; $i++) {
@@ -104,10 +104,10 @@ class TableTest extends PHPUnitTestCase
      */
     public function testIndexMethods()
     {
-        $table = new ExampleTable();
+        $table = new FirstTestTable();
         $this->assertCount(0, $table->getIndexes());
 
-        $index = new ExampleTable\ExampleIndex();
+        $index = new FirstTestTable\ExampleIndex();
 
         for ($i = 0; $i < 2; $i++) {
             try {
@@ -116,8 +116,8 @@ class TableTest extends PHPUnitTestCase
                 $this->assertGreaterThan(0, $i);
             }
             $this->assertCount(1, $table->getIndexes());
-            $this->assertInstanceOf(ExampleTable\ExampleIndex::class, $table->getIndexes()[$index::getName()]);
-            $this->assertInstanceOf(ExampleTable\ExampleIndex::class, $table->getIndex($index::getName()));
+            $this->assertInstanceOf(FirstTestTable\ExampleIndex::class, $table->getIndexes()[$index::getName()]);
+            $this->assertInstanceOf(FirstTestTable\ExampleIndex::class, $table->getIndex($index::getName()));
             $this->assertTrue($table->hasIndex($index::getName()));
         }
 
@@ -140,10 +140,10 @@ class TableTest extends PHPUnitTestCase
      */
     public function testUniqueIndexMethods()
     {
-        $table = new ExampleTable();
+        $table = new FirstTestTable();
         $this->assertCount(0, $table->getUniques());
 
-        $index = new ExampleTable\ExampleUniqueIndex();
+        $index = new FirstTestTable\ExampleUniqueIndex();
 
         for ($i = 0; $i < 2; $i++) {
             try {
@@ -152,8 +152,8 @@ class TableTest extends PHPUnitTestCase
                 $this->assertGreaterThan(0, $i);
             }
             $this->assertCount(1, $table->getUniques());
-            $this->assertInstanceOf(ExampleTable\ExampleUniqueIndex::class, $table->getUniques()[$index::getName()]);
-            $this->assertInstanceOf(ExampleTable\ExampleUniqueIndex::class, $table->getUnique($index::getName()));
+            $this->assertInstanceOf(FirstTestTable\ExampleUniqueIndex::class, $table->getUniques()[$index::getName()]);
+            $this->assertInstanceOf(FirstTestTable\ExampleUniqueIndex::class, $table->getUnique($index::getName()));
             $this->assertTrue($table->hasUnique($index::getName()));
         }
 

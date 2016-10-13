@@ -236,6 +236,9 @@ final class Schema
         return $dom->save($filepath);
     }
 
+    /**
+     * @return string
+     */
     final public function generateOutputXml(): string
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');

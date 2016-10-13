@@ -90,12 +90,14 @@ class SchemaTest extends PHPUnitTestCase
         $schema = new Schema();
         $schema->createDatabaseIfNotExists(new ExampleDatabase());
 
-        $xml = $schema->generateOutputXml();exit(var_dump($xml));
+        $schema->getDatabase(ExampleDatabase::getName());
+
+        $xml = $schema->generateOutputXml();
         $this->assertXmlHasProlog($xml);
 
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->loadXML($xml);
-        exit(var_dump($dom));
+        //exit(var_dump($dom));
     }
 
     public function testWriteToFile()

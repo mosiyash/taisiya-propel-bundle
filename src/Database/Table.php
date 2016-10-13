@@ -751,4 +751,50 @@ abstract class Table implements TableInterface
 
         return $this;
     }
+
+    /**
+     * @param \DOMDocument $dom
+     * @param \DOMElement $database
+     */
+    final public function appendToXmlDocument(\DOMDocument $dom, \DOMElement $database): void
+    {
+        $table = $dom->createElement('table');
+        $table->setAttribute('name', $this::getName());
+
+        $additionalProperties = [
+            'idMethod',
+            'phpName',
+            'package',
+            'schema',
+            'namespace',
+            'skipSql',
+            'abstract',
+            'phpNamingMethod',
+            'baseClass',
+            'description',
+            'heavyIndexing',
+            'identifierQuoting',
+            'readOnly',
+            'treeMode',
+            'reloadOnInsert',
+            'reloadOnUpdate',
+            'allowPkInsert',
+        ];
+
+        foreach ($additionalProperties as $propertyName) {
+            $method = method_exists($table, 'get'.ucfirst($propertyName))
+                ? 'get'.ucfirst($propertyName)
+                : 'is'.ucfirst($propertyName);
+
+            $propertyValue = $table->{$method}();
+            if ($propertyValue != '') {
+                if (is_bool($propertyValue)) {
+                    $propertyValue = $propertyValue ? 'true' : false;
+                }
+                $table->setAttribute($propertyName, $propertyValue);
+            }
+        }
+
+        $database->appendChild($table);
+    }
 }
