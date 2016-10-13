@@ -1,11 +1,12 @@
 language: php
 
-php:
-  - '7.1'
+matrix:
+  include:
+      env: COLLECT_COVERAGE=true
+    - php: 7.1
 
 install:
-  - composer self-update
-  - composer install
+  - travis_retry composer install --no-interaction --prefer-source
 
 script:
   - if [[ "$COLLECT_COVERAGE" == "true" ]]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
