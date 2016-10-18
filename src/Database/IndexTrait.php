@@ -12,8 +12,9 @@ trait IndexTrait
     private $columns = [];
 
     /**
-     * @param Column $column
+     * @param Column   $column
      * @param int|null $size
+     *
      * @return Index
      */
     final public function addColumn(Column $column, int $size = null): Index
@@ -28,8 +29,9 @@ trait IndexTrait
     }
 
     /**
-     * @param Column $column
+     * @param Column   $column
      * @param int|null $size
+     *
      * @return Index
      */
     final public function addColumnIfNotExists(Column $column, int $size = null): Index
@@ -56,6 +58,7 @@ trait IndexTrait
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     final public function hasColumn(string $name): bool
@@ -65,6 +68,7 @@ trait IndexTrait
 
     /**
      * @param string $name
+     *
      * @return Index
      */
     final public function removeColumn(string $name): Index
@@ -77,6 +81,7 @@ trait IndexTrait
             $this->columns,
             function (IndexColumn $indexColumn) use ($name) {
                 $column = $indexColumn->getColumn();
+
                 return (bool) ($column::getName() !== $name);
             }
         );
@@ -86,9 +91,10 @@ trait IndexTrait
 
     /**
      * @param string $name
+     *
      * @return null|IndexColumn
      */
-    final public function findIndexColumnByName(string $name): ?IndexColumn
+    final public function findIndexColumnByName(string $name): ? IndexColumn
     {
         /** @var IndexColumn $indexColumn */
         foreach ($this->columns as $indexColumn) {

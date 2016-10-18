@@ -6,7 +6,7 @@ abstract class Unique extends Index
 {
     /**
      * @param \DOMDocument $dom
-     * @param \DOMElement $table
+     * @param \DOMElement  $table
      */
     public function appendToXmlDocument(\DOMDocument $dom, \DOMElement $table): void
     {

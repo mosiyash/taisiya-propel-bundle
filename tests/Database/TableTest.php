@@ -26,7 +26,7 @@ class TableTest extends PHPUnitTestCase
 
         $column = new TestColumn();
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->createColumn($column);
             } catch (InvalidArgumentException $e) {
@@ -39,7 +39,7 @@ class TableTest extends PHPUnitTestCase
             $this->assertTrue($table->hasColumn(TestColumn::getName()));
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->removeColumn($column);
             } catch (InvalidArgumentException $e) {
@@ -48,7 +48,7 @@ class TableTest extends PHPUnitTestCase
             $this->assertCount(0, $table->getColumns());
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             $table->createColumnIfNotExists($column);
             $this->assertCount(1, $table->getColumns());
             $this->assertEquals($column, $table->getColumn(TestColumn::getName()));
@@ -72,7 +72,7 @@ class TableTest extends PHPUnitTestCase
             new ForeignKeyReference(new FirstTestTable\IdColumn(), new SecondTestTable\FirstTestTableId())
         );
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->addForeignKey($foreignKey);
             } catch (InvalidArgumentException $e) {
@@ -84,7 +84,7 @@ class TableTest extends PHPUnitTestCase
             $this->assertTrue($table->hasForeignKey($foreignKey::getName()));
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->removeForeignKey($foreignKey);
             } catch (InvalidArgumentException $e) {
@@ -108,7 +108,7 @@ class TableTest extends PHPUnitTestCase
 
         $index = new FirstTestTable\TestIndex();
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->addIndex($index);
             } catch (InvalidArgumentException $e) {
@@ -120,7 +120,7 @@ class TableTest extends PHPUnitTestCase
             $this->assertTrue($table->hasIndex($index::getName()));
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->removeIndex($index);
             } catch (InvalidArgumentException $e) {
@@ -144,7 +144,7 @@ class TableTest extends PHPUnitTestCase
 
         $index = new FirstTestTable\TestUniqueIndex();
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->addUnique($index);
             } catch (InvalidArgumentException $e) {
@@ -156,7 +156,7 @@ class TableTest extends PHPUnitTestCase
             $this->assertTrue($table->hasUnique($index::getName()));
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $table->removeUnique($index);
             } catch (InvalidArgumentException $e) {

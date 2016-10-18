@@ -6,7 +6,7 @@ use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
 
 abstract class Table implements TableInterface
 {
-    const TREE_MODE_NESTED_SET = 'nested_set';
+    const TREE_MODE_NESTED_SET        = 'nested_set';
     const TREE_MODE_MATERIALIZED_PATH = 'materialized_path';
 
     /**
@@ -31,6 +31,7 @@ abstract class Table implements TableInterface
 
     /**
      * The id method to use for auto-increment columns.
+     *
      * @var string
      */
     private $idMethod = Database::ID_METHOD_NATIVE;
@@ -38,6 +39,7 @@ abstract class Table implements TableInterface
     /**
      * Object model class name. By default,
      * Propel uses a CamelCase version of the table name as phpName.
+     *
      * @var string|null
      */
     private $phpName = null;
@@ -45,6 +47,7 @@ abstract class Table implements TableInterface
     /**
      * The “package” for the generated classes.
      * Classes are created in subdirectories according to the package value.
+     *
      * @var string|null
      */
     private $package = null;
@@ -52,6 +55,7 @@ abstract class Table implements TableInterface
     /**
      * The default SQL schema containing the tables.
      * Ignored on RDBMS not supporting database schemas.
+     *
      * @var string|null
      */
     private $schema = null;
@@ -61,6 +65,7 @@ abstract class Table implements TableInterface
      * If the table namespace starts with a \\, it overrides the namespace
      * defined in the <database> tag; otherwise, the actual table namespace
      * is the concatenation of the database namespace and the table namespace.
+     *
      * @var string|null
      */
     private $namespace = null;
@@ -68,12 +73,14 @@ abstract class Table implements TableInterface
     /**
      * Instructs Propel not to generate DDL SQL for the specified table.
      * This can be used together with readOnly for supporting VIEWS in Propel.
+     *
      * @var bool
      */
     private $skipSql = false;
 
     /**
      * Whether the generated stub class will be abstract (e.g. if you’re using inheritance).
+     *
      * @var bool
      */
     private $abstract = false;
@@ -81,6 +88,7 @@ abstract class Table implements TableInterface
     /**
      * The default naming method to use for tables of this database.
      * Defaults to underscore, which transforms table names into CamelCase phpNames.
+     *
      * @var string
      */
     private $phpNamingMethod = Database::PHP_NAMING_METHOD_UNDERSCORE;
@@ -88,18 +96,21 @@ abstract class Table implements TableInterface
     /**
      * Allows you to specify a class that the generated Propel objects should extend
      * (in place of propel.om.BaseObject).
+     *
      * @var string|null
      */
     private $baseClass = null;
 
     /**
      * A text description of the table.
+     *
      * @var string|null
      */
     private $description = null;
 
     /**
      * Adds indexes for each component of the primary key (when using composite primary keys).
+     *
      * @var bool
      */
     private $heavyIndexing = false;
@@ -107,12 +118,14 @@ abstract class Table implements TableInterface
     /**
      * Auotes all identifiers (table name, column names) in DDL and SQL queries.
      * This is necessary if you use reserved words as table or column name.
+     *
      * @var bool
      */
     private $identifierQuoting = false;
 
     /**
      * Suppresses the mutator/setter methods, save() and delete() methods.
+     *
      * @var bool
      */
     private $readOnly = false;
@@ -121,6 +134,7 @@ abstract class Table implements TableInterface
      * Is used to indicate that this table is part of a node tree.
      * Currently the only supported values are NestedSet (see the NestedSet behavior section)
      * and MaterializedPath (deprecated).
+     *
      * @var string|null
      */
     private $treeMode = null;
@@ -130,6 +144,7 @@ abstract class Table implements TableInterface
      * when an INSERT is performed. This is useful if you have triggers
      * (or other server-side functionality like column default expressions)
      * that alters the database row on INSERT.
+     *
      * @var bool
      */
     private $reloadOnInsert = true;
@@ -139,6 +154,7 @@ abstract class Table implements TableInterface
      * when an UPDATE is performed. This is useful if you have triggers
      * (or other server-side functionality like column default expressions)
      * that alters the database row on UPDATE.
+     *
      * @var bool
      */
     private $reloadOnUpdate = true;
@@ -148,6 +164,7 @@ abstract class Table implements TableInterface
      * By default if idMethod is “native”, Propel would throw an exception.
      * However, in some cases this feature is useful, for example if you do some replication
      * of data in an master-master environment. It defaults to false.
+     *
      * @var bool
      */
     private $allowPkInsert = false;
@@ -162,8 +179,10 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $idMethod
-     * @return Table
+     *
      * @throws InvalidArgumentException
+     *
+     * @return Table
      */
     final public function setIdMethod(string $idMethod): Table
     {
@@ -184,13 +203,14 @@ abstract class Table implements TableInterface
     /**
      * @return string|null
      */
-    final public function getPhpName(): ?string
+    final public function getPhpName(): ? string
     {
         return $this->phpName;
     }
 
     /**
      * @param string|null $phpName
+     *
      * @return Database
      */
     final public function setPhpName(string $phpName = null)
@@ -202,10 +222,12 @@ abstract class Table implements TableInterface
 
     /**
      * @param Column $column
-     * @return Table
+     *
      * @throws InvalidArgumentException
+     *
+     * @return Table
      */
-    final public function createColumn(Column $column): Table
+    final public function createColumn(Column $column) : Table
     {
         if ($this->hasColumn($column::getName())) {
             throw new InvalidArgumentException('Column '.$column::getName().' already added');
@@ -218,6 +240,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param Column $column
+     *
      * @return Table
      */
     final public function createColumnIfNotExists(Column $column): Table
@@ -231,8 +254,10 @@ abstract class Table implements TableInterface
 
     /**
      * @param Column $column
-     * @return Table
+     *
      * @throws InvalidArgumentException
+     *
+     * @return Table
      */
     final public function removeColumn(Column $column): Table
     {
@@ -247,8 +272,10 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
-     * @return Column
+     *
      * @throws InvalidArgumentException
+     *
+     * @return Column
      */
     final public function getColumn(string $name): Column
     {
@@ -261,6 +288,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     final public function hasColumn(string $name): bool
@@ -279,16 +307,17 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    final public function getPackage(): ?string
+    final public function getPackage(): ? string
     {
         return $this->package;
     }
 
     /**
      * @param null|string $package
+     *
      * @return Table
      */
-    final public function setPackage(string $package = null): Table
+    final public function setPackage(string $package = null) : Table
     {
         $this->package = $package;
 
@@ -298,16 +327,17 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    final public function getSchema(): ?string
+    final public function getSchema(): ? string
     {
         return $this->schema;
     }
 
     /**
      * @param null|string $schema
+     *
      * @return Table
      */
-    final public function setSchema(string $schema = null): Table
+    final public function setSchema(string $schema = null) : Table
     {
         $this->schema = $schema;
 
@@ -317,16 +347,17 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    final public function getNamespace(): ?string
+    final public function getNamespace(): ? string
     {
         return $this->namespace;
     }
 
     /**
      * @param null|string $namespace
+     *
      * @return Table
      */
-    final public function setNamespace(string $namespace = null): Table
+    final public function setNamespace(string $namespace = null) : Table
     {
         $this->namespace = $namespace;
 
@@ -334,7 +365,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isSkipSql(): bool
     {
@@ -342,7 +373,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $skipSql
+     * @param bool $skipSql
+     *
      * @return Table
      */
     final public function setSkipSql(bool $skipSql): Table
@@ -353,7 +385,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isAbstract(): bool
     {
@@ -361,7 +393,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $abstract
+     * @param bool $abstract
+     *
      * @return Table
      */
     final public function setAbstract(bool $abstract): Table
@@ -381,6 +414,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $phpNamingMethod
+     *
      * @return Table
      */
     final public function setPhpNamingMethod(string $phpNamingMethod): Table
@@ -404,16 +438,17 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    final public function getBaseClass(): ?string
+    final public function getBaseClass(): ? string
     {
         return $this->baseClass;
     }
 
     /**
      * @param null|string $baseClass
+     *
      * @return Table
      */
-    final public function setBaseClass(string $baseClass = null): Table
+    final public function setBaseClass(string $baseClass = null) : Table
     {
         $this->baseClass = $baseClass;
 
@@ -423,16 +458,17 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    final public function getDescription(): ?string
+    final public function getDescription(): ? string
     {
         return $this->description;
     }
 
     /**
      * @param null|string $description
+     *
      * @return Table
      */
-    final public function setDescription(string $description = null): Table
+    final public function setDescription(string $description = null) : Table
     {
         $this->description = $description;
 
@@ -440,7 +476,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isHeavyIndexing(): bool
     {
@@ -448,7 +484,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $heavyIndexing
+     * @param bool $heavyIndexing
+     *
      * @return Table
      */
     final public function setHeavyIndexing(bool $heavyIndexing): Table
@@ -459,7 +496,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isIdentifierQuoting(): bool
     {
@@ -467,7 +504,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $identifierQuoting
+     * @param bool $identifierQuoting
+     *
      * @return Table
      */
     final public function setIdentifierQuoting(bool $identifierQuoting): Table
@@ -478,7 +516,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isReadOnly(): bool
     {
@@ -486,7 +524,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $readOnly
+     * @param bool $readOnly
+     *
      * @return Table
      */
     final public function setReadOnly(bool $readOnly): Table
@@ -499,17 +538,19 @@ abstract class Table implements TableInterface
     /**
      * @return null|string
      */
-    final public function getTreeMode(): ?string
+    final public function getTreeMode(): ? string
     {
         return $this->treeMode;
     }
 
     /**
      * @param null|string $treeMode
+     *
      * @throws InvalidArgumentException
+     *
      * @return Table
      */
-    final public function setTreeMode(string $treeMode = null): Table
+    final public function setTreeMode(string $treeMode = null) : Table
     {
         if ($treeMode !== null) {
             $available = [
@@ -528,7 +569,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isReloadOnInsert(): bool
     {
@@ -536,7 +577,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $reloadOnInsert
+     * @param bool $reloadOnInsert
+     *
      * @return Table
      */
     final public function setReloadOnInsert(bool $reloadOnInsert): Table
@@ -547,7 +589,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isReloadOnUpdate(): bool
     {
@@ -555,7 +597,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $reloadOnUpdate
+     * @param bool $reloadOnUpdate
+     *
      * @return Table
      */
     final public function setReloadOnUpdate(bool $reloadOnUpdate): Table
@@ -566,7 +609,7 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isAllowPkInsert(): bool
     {
@@ -574,7 +617,8 @@ abstract class Table implements TableInterface
     }
 
     /**
-     * @param boolean $allowPkInsert
+     * @param bool $allowPkInsert
+     *
      * @return Table
      */
     final public function setAllowPkInsert(bool $allowPkInsert): Table
@@ -594,6 +638,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
+     *
      * @return ForeignKey
      */
     final public function getForeignKey(string $name): ForeignKey
@@ -603,6 +648,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     final public function hasForeignKey(string $name): bool
@@ -612,6 +658,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param ForeignKey $foreignKey
+     *
      * @return Table
      */
     final public function addForeignKey(ForeignKey $foreignKey): Table
@@ -627,6 +674,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param ForeignKey $foreignKey
+     *
      * @return Table
      */
     final public function removeForeignKey(ForeignKey $foreignKey): Table
@@ -650,6 +698,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
+     *
      * @return Index
      */
     final public function getIndex(string $name): Index
@@ -659,6 +708,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     final public function hasIndex(string $name): bool
@@ -668,6 +718,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param Index $index
+     *
      * @return Table
      */
     final public function addIndex(Index $index): Table
@@ -683,6 +734,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param Index $index
+     *
      * @return Table
      */
     final public function removeIndex(Index $index): Table
@@ -706,6 +758,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
+     *
      * @return Unique
      */
     final public function getUnique(string $name): Unique
@@ -715,6 +768,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     final public function hasUnique(string $name): bool
@@ -724,6 +778,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param Unique $index
+     *
      * @return Table
      */
     final public function addUnique(Unique $index): Table
@@ -739,6 +794,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param Unique $index
+     *
      * @return Table
      */
     final public function removeUnique(Unique $index): Table
@@ -754,7 +810,7 @@ abstract class Table implements TableInterface
 
     /**
      * @param \DOMDocument $dom
-     * @param \DOMElement $database
+     * @param \DOMElement  $database
      */
     final public function appendToXmlDocument(\DOMDocument $dom, \DOMElement $database): void
     {

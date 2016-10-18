@@ -16,12 +16,13 @@ final class ForeignKeyReference
 
     /**
      * ForeignKeyReference constructor.
+     *
      * @param Column $localColumn
      * @param Column $foreignColumn
      */
     public function __construct(Column $localColumn, Column $foreignColumn)
     {
-        $this->localColumn = $localColumn;
+        $this->localColumn   = $localColumn;
         $this->foreignColumn = $foreignColumn;
     }
 

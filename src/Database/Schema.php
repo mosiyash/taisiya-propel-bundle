@@ -13,8 +13,10 @@ final class Schema
 
     /**
      * @param Database $database
-     * @return self
+     *
      * @throws InvalidArgumentException
+     *
+     * @return self
      */
     public function createDatabase(Database $database): self
     {
@@ -29,6 +31,7 @@ final class Schema
 
     /**
      * @param Database $database
+     *
      * @return Schema
      */
     public function createDatabaseIfNotExists(Database $database): self
@@ -42,7 +45,9 @@ final class Schema
 
     /**
      * @param Database $database
+     *
      * @throws InvalidArgumentException
+     *
      * @return Schema
      */
     public function removeDatabase(Database $database): self
@@ -58,8 +63,10 @@ final class Schema
 
     /**
      * @param string $name
-     * @return Database
+     *
      * @throws InvalidArgumentException
+     *
+     * @return Database
      */
     public function getDatabase(string $name): Database
     {
@@ -76,6 +83,7 @@ final class Schema
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasDatabase(string $name): bool
@@ -85,7 +93,7 @@ final class Schema
 
     public function hasDatabaseByClassName(string $className): bool
     {
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             throw new InvalidArgumentException('Class '.$className.' not exists.');
         }
         $reflectionClass = new \ReflectionClass($className);
@@ -109,7 +117,7 @@ final class Schema
      */
     final public function generateOutputXml(): string
     {
-        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom               = new \DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;
 
         /** @var Database $database */

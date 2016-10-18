@@ -9,9 +9,9 @@ trait XMLAssertsTrait
 {
     /**
      * @param string|\DOMDocument $xml
-     * @param string $version
-     * @param string $encoding
-     * @param string $message
+     * @param string              $version
+     * @param string              $encoding
+     * @param string              $message
      */
     public function assertXmlHasProlog($xml, $version = '1.0', $encoding = 'UTF-8', string $message = ''): void
     {
@@ -20,9 +20,9 @@ trait XMLAssertsTrait
 
     /**
      * @param string|\DOMDocument $xml
-     * @param string $query
-     * @param int|null $count
-     * @param string $message
+     * @param string              $query
+     * @param int|null            $count
+     * @param string              $message
      */
     public function assertXmlHasElements($xml, string $query, int $count = null, string $message = '')
     {
@@ -31,7 +31,7 @@ trait XMLAssertsTrait
         }
 
         $xpath = $this->toXPath($xml);
-        $list = $xpath->query($query);
+        $list  = $xpath->query($query);
 
         if ($count === null) {
             $this->assertGreaterThan(0, $list->length, $message);
@@ -42,7 +42,9 @@ trait XMLAssertsTrait
 
     /**
      * @param string|\DOMDocument $xml
+     *
      * @throws \InvalidArgumentException
+     *
      * @return \DOMXPath
      */
     private function toXPath($xml): \DOMXPath

@@ -13,6 +13,7 @@ class ForeignKeyTest extends PHPUnitTestCase
     /**
      * @covers ForeignKey::getForeignTable
      * @covers ForeignKey::getForeignKeyReference
+     *
      * @return TestForeignKey
      */
     public function testConstruct()
@@ -23,7 +24,7 @@ class ForeignKeyTest extends PHPUnitTestCase
         );
         $this->assertInstanceOf(ForeignKey::class, $foreignKey);
         $this->assertInstanceOf(Table::class, $foreignKey->getForeignTable());
-        
+
         return $foreignKey;
     }
 }

@@ -20,7 +20,7 @@ class IndexTest extends PHPUnitTestCase
     {
         $index = new TestIndex();
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $index->addColumn(new IdColumn());
             } catch (InvalidArgumentException $e) {
@@ -31,7 +31,7 @@ class IndexTest extends PHPUnitTestCase
             $this->assertNull($index->findIndexColumnByName(IdColumn::getName())->getSize());
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $index->removeColumn(IdColumn::getName());
             } catch (InvalidArgumentException $e) {
@@ -40,7 +40,7 @@ class IndexTest extends PHPUnitTestCase
             $this->assertCount(0, $index->getColumns());
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             $index->addColumnIfNotExists(new IdColumn(), 255);
             $this->assertCount(1, $index->getColumns());
             $this->assertInstanceOf(IdColumn::class, $index->getColumns()[0]->getColumn());

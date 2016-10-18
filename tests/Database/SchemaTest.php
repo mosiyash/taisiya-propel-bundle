@@ -28,7 +28,7 @@ class SchemaTest extends PHPUnitTestCase
 
         $database = new TestDatabase();
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $schema->createDatabase($database);
             } catch (InvalidArgumentException $e) {
@@ -40,7 +40,7 @@ class SchemaTest extends PHPUnitTestCase
             $this->assertTrue($schema->hasDatabase(TestDatabase::getName()));
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $schema->removeDatabase($database);
             } catch (InvalidArgumentException $e) {
@@ -49,7 +49,7 @@ class SchemaTest extends PHPUnitTestCase
             $this->assertCount(0, $schema->getDatabases());
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             $schema->createDatabaseIfNotExists($database);
             $this->assertCount(1, $schema->getDatabases());
             $this->assertTrue($schema->hasDatabase(TestDatabase::getName()));

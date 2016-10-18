@@ -12,17 +12,17 @@ return [
                     'dsn'        => 'mysql:host=localhost;dbname=taisiya',
                     'user'       => 'root',
                     'password'   => 'root',
-                    'attributes' => []
+                    'attributes' => [],
                 ],
             ],
         ],
         'runtime' => [
             'defaultConnection' => 'default',
-            'connections' => ['default'],
+            'connections'       => ['default'],
         ],
         'generator' => [
             'defaultConnection' => 'default',
-            'connections' => ['default'],
+            'connections'       => ['default'],
         ],
     ],
 ];

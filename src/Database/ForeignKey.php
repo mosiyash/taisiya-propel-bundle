@@ -4,10 +4,10 @@ namespace Taisiya\PropelBundle\Database;
 
 abstract class ForeignKey implements ForeignKeyInterface
 {
-    const ON_UPDATE_DELETE_CASCADE = 'cascade';
-    const ON_UPDATE_DELETE_SETNULL = 'setnull';
+    const ON_UPDATE_DELETE_CASCADE  = 'cascade';
+    const ON_UPDATE_DELETE_SETNULL  = 'setnull';
     const ON_UPDATE_DELETE_RESTRICT = 'restrict';
-    const ON_UPDATE_DELETE_NONE = 'none';
+    const ON_UPDATE_DELETE_NONE     = 'none';
 
     /**
      * @var Table
@@ -21,24 +21,28 @@ abstract class ForeignKey implements ForeignKeyInterface
 
     /**
      * The other table SQL schema.
+     *
      * @var string|null
      */
     private $foreignSchema = null;
 
     /**
      * Name for this foreign key.
+     *
      * @var string|null
      */
     private $name = null;
 
     /**
      * Name for the foreign object in methods generated in this class.
+     *
      * @var string|null
      */
     private $phpName = null;
 
     /**
      * Name for this object in methods generated in the foreign class.
+     *
      * @var string|null
      */
     private $refPhpName = null;
@@ -56,7 +60,8 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * Instructs Propel not to generate DDL SQL for the specified foreign key.
      * This can be used to support relationships in the model without an actual foreign key.
-     * @var boolean|null
+     *
+     * @var bool|null
      */
     private $skipSql = null;
 
@@ -65,18 +70,20 @@ abstract class ForeignKey implements ForeignKeyInterface
      * in the model query class. Propel uses an INNER JOIN for foreign keys attached
      * to a required column, and a LEFT JOIN for foreign keys attached
      * to a non-required column, but you can override this in the foreign key element.
+     *
      * @var string|null
      */
     private $defaultJoin = null;
 
     /**
      * ForeignKey constructor.
-     * @param Table $foreignTable
+     *
+     * @param Table               $foreignTable
      * @param ForeignKeyReference $foreignKeyReference
      */
     final public function __construct(Table $foreignTable, ForeignKeyReference $foreignKeyReference)
     {
-        $this->foreignTable = $foreignTable;
+        $this->foreignTable        = $foreignTable;
         $this->foreignKeyReference = $foreignKeyReference;
     }
 
@@ -99,28 +106,32 @@ abstract class ForeignKey implements ForeignKeyInterface
     /**
      * @return null|string
      */
-    final public function getForeignSchema(): ?string
+    final public function getForeignSchema(): ? string
     {
         return $this->foreignSchema;
     }
 
     /**
      * @param null|string $foreignSchema
+     *
      * @return ForeignKey
      */
     final public function setForeignSchema($foreignSchema)
     {
         $this->foreignSchema = $foreignSchema;
+
         return $this;
     }
 
     /**
      * @param null|string $name
+     *
      * @return ForeignKey
      */
     final public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -134,11 +145,13 @@ abstract class ForeignKey implements ForeignKeyInterface
 
     /**
      * @param null|string $phpName
+     *
      * @return ForeignKey
      */
     final public function setPhpName($phpName)
     {
         $this->phpName = $phpName;
+
         return $this;
     }
 
@@ -152,11 +165,13 @@ abstract class ForeignKey implements ForeignKeyInterface
 
     /**
      * @param null|string $refPhpName
+     *
      * @return ForeignKey
      */
     final public function setRefPhpName($refPhpName)
     {
         $this->refPhpName = $refPhpName;
+
         return $this;
     }
 
@@ -170,11 +185,13 @@ abstract class ForeignKey implements ForeignKeyInterface
 
     /**
      * @param null|string $onDelete
+     *
      * @return ForeignKey
      */
     final public function setOnDelete($onDelete)
     {
         $this->onDelete = $onDelete;
+
         return $this;
     }
 
@@ -188,11 +205,13 @@ abstract class ForeignKey implements ForeignKeyInterface
 
     /**
      * @param null|string $onUpdate
+     *
      * @return ForeignKey
      */
     final public function setOnUpdate($onUpdate)
     {
         $this->onUpdate = $onUpdate;
+
         return $this;
     }
 
@@ -206,11 +225,13 @@ abstract class ForeignKey implements ForeignKeyInterface
 
     /**
      * @param bool|null $skipSql
+     *
      * @return ForeignKey
      */
     final public function setSkipSql($skipSql)
     {
         $this->skipSql = $skipSql;
+
         return $this;
     }
 
@@ -224,11 +245,13 @@ abstract class ForeignKey implements ForeignKeyInterface
 
     /**
      * @param null|string $defaultJoin
+     *
      * @return ForeignKey
      */
     final public function setDefaultJoin($defaultJoin)
     {
         $this->defaultJoin = $defaultJoin;
+
         return $this;
     }
 }

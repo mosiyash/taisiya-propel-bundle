@@ -16,13 +16,14 @@ final class IndexColumn
 
     /**
      * IndexColumn constructor.
-     * @param Column $column
+     *
+     * @param Column   $column
      * @param int|null $size
      */
     public function __construct(Column $column, int $size = null)
     {
         $this->column = $column;
-        $this->size = $size;
+        $this->size   = $size;
     }
 
     /**
@@ -36,16 +37,17 @@ final class IndexColumn
     /**
      * @return int|null
      */
-    public function getSize(): ?int
+    public function getSize(): ? int
     {
         return $this->size;
     }
 
     /**
      * @param int|null $size
+     *
      * @return IndexColumn
      */
-    public function setSize(int $size = null): self
+    public function setSize(int $size = null) : self
     {
         $this->size = $size;
 
@@ -54,7 +56,7 @@ final class IndexColumn
 
     /**
      * @param \DOMDocument $dom
-     * @param \DOMElement $index
+     * @param \DOMElement  $index
      */
     public function appendToXmlDocument(\DOMDocument $dom, \DOMElement $index): void
     {

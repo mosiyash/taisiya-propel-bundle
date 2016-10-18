@@ -24,7 +24,7 @@ class DatabaseTest extends PHPUnitTestCase
 
         $table = new FirstTestTable();
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $database->createTable($table);
             } catch (InvalidArgumentException $e) {
@@ -37,7 +37,7 @@ class DatabaseTest extends PHPUnitTestCase
             $this->assertTrue($database->hasTable(FirstTestTable::getName()));
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             try {
                 $database->removeTable($table);
             } catch (InvalidArgumentException $e) {
@@ -46,7 +46,7 @@ class DatabaseTest extends PHPUnitTestCase
             $this->assertCount(0, $database->getTables());
         }
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; ++$i) {
             $database->createTableIfNotExists($table);
             $this->assertCount(1, $database->getTables());
             $this->assertEquals($table, $database->getTable(FirstTestTable::getName()));

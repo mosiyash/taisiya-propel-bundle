@@ -7,42 +7,42 @@ use Taisiya\PropelBundle\Database\Exception\InvalidArgumentException;
 
 abstract class Column implements ColumnInterface
 {
-    const TYPE_BOOLEAN = 'BOOLEAN';
-    const TYPE_TINYINT = 'TINYINT';
-    const TYPE_SMALLINT = 'SMALLINT';
-    const TYPE_INTEGER = 'INTEGER';
-    const TYPE_BIGINT = 'BIGINT';
-    const TYPE_DOUBLE = 'DOUBLE';
-    const TYPE_FLOAT = 'FLOAT';
-    const TYPE_REAL = 'REAL';
-    const TYPE_DECIMAL = 'DECIMAL';
-    const TYPE_NUMERIC = 'NUMERIC';
-    const TYPE_CHAR = 'CHAR';
-    const TYPE_VARCHAR = 'VARCHAR';
-    const TYPE_LONGVARCHAR = 'LONGVARCHAR';
-    const TYPE_DATE = 'DATE';
-    const TYPE_TIME = 'TIME';
-    const TYPE_TIMESTAMP = 'TIMESTAMP';
-    const TYPE_BLOB = 'BLOB';
-    const TYPE_CLOB = 'CLOB';
-    const TYPE_OBJECT = 'OBJECT';
-    const TYPE_ARRAY = 'ARRAY';
-    const TYPE_ENUM = 'ENUM';
-    const TYPE_SET = 'SET';
-    const TYPE_GEOMETRY = 'GEOMETRY';
-    const TYPE_BU_DATE = 'BU_DATE';
-    const TYPE_BU_TIMESTAMP = 'BU_TIMESTAMP';
-    const TYPE_BOOLEAN_EMU = 'BOOLEAN_EMU';
-    const TYPE_BINARY = 'BINARY';
-    const TYPE_VARBINARY = 'VARBINARY';
+    const TYPE_BOOLEAN       = 'BOOLEAN';
+    const TYPE_TINYINT       = 'TINYINT';
+    const TYPE_SMALLINT      = 'SMALLINT';
+    const TYPE_INTEGER       = 'INTEGER';
+    const TYPE_BIGINT        = 'BIGINT';
+    const TYPE_DOUBLE        = 'DOUBLE';
+    const TYPE_FLOAT         = 'FLOAT';
+    const TYPE_REAL          = 'REAL';
+    const TYPE_DECIMAL       = 'DECIMAL';
+    const TYPE_NUMERIC       = 'NUMERIC';
+    const TYPE_CHAR          = 'CHAR';
+    const TYPE_VARCHAR       = 'VARCHAR';
+    const TYPE_LONGVARCHAR   = 'LONGVARCHAR';
+    const TYPE_DATE          = 'DATE';
+    const TYPE_TIME          = 'TIME';
+    const TYPE_TIMESTAMP     = 'TIMESTAMP';
+    const TYPE_BLOB          = 'BLOB';
+    const TYPE_CLOB          = 'CLOB';
+    const TYPE_OBJECT        = 'OBJECT';
+    const TYPE_ARRAY         = 'ARRAY';
+    const TYPE_ENUM          = 'ENUM';
+    const TYPE_SET           = 'SET';
+    const TYPE_GEOMETRY      = 'GEOMETRY';
+    const TYPE_BU_DATE       = 'BU_DATE';
+    const TYPE_BU_TIMESTAMP  = 'BU_TIMESTAMP';
+    const TYPE_BOOLEAN_EMU   = 'BOOLEAN_EMU';
+    const TYPE_BINARY        = 'BINARY';
+    const TYPE_VARBINARY     = 'VARBINARY';
     const TYPE_LONGVARBINARY = 'LONGVARBINARY';
 
     const SQL_TYPE_BOOLEAN = 'boolean';
-    const SQL_TYPE_INT = 'int';
+    const SQL_TYPE_INT     = 'int';
     const SQL_TYPE_INTEGER = 'integer';
-    const SQL_TYPE_DOUBLE = 'double';
-    const SQL_TYPE_FLOAT = 'float';
-    const SQL_TYPE_STRING = 'string';
+    const SQL_TYPE_DOUBLE  = 'double';
+    const SQL_TYPE_FLOAT   = 'float';
+    const SQL_TYPE_STRING  = 'string';
 
     /**
      * @var array
@@ -52,24 +52,28 @@ abstract class Column implements ColumnInterface
     /**
      * Object model class name. By default,
      * Propel uses a CamelCase version of the table name as phpName.
+     *
      * @var string|null
      */
     private $phpName = null;
 
     /**
      * The table map name.
+     *
      * @var string|null
      */
     private $tableMapName = null;
 
     /**
      * Is primary key or not.
+     *
      * @var bool
      */
     private $primaryKey = false;
 
     /**
      * Is required or not.
+     *
      * @var bool
      */
     private $required = false;
@@ -78,12 +82,14 @@ abstract class Column implements ColumnInterface
      * The database-agnostic column type.
      * Propel maps native SQL types to these types depending on the RDBMS.
      * Using Propel types guarantees that a column definition is portable.
+     *
      * @var string|null
      */
     private $type = null;
 
     /**
      * The PHP type.
+     *
      * @var string|null
      */
     private $phpType = null;
@@ -91,25 +97,29 @@ abstract class Column implements ColumnInterface
     /**
      * The SQL type to be used in CREATE and ALTER statements
      * (overriding the mapping between Propel types and RMDBS type).
+     *
      * @var string|null
      */
     private $sqlType = null;
 
     /**
      * Numeric length of column.
-     * @var integer|null
+     *
+     * @var int|null
      */
     private $size = null;
 
     /**
      * Digits after decimal place.
-     * @var integer|null
+     *
+     * @var int|null
      */
     private $scale = null;
 
     /**
      * The default value that the object will have for this column in the PHP instance
      * after creating a “new Object”. This value is always interpreted as a string.
+     *
      * @var string|null
      */
     private $defaultvalue = null;
@@ -118,6 +128,7 @@ abstract class Column implements ColumnInterface
      * The default value for this column as expressed in SQL. This value is used solely
      * for the “sql” target which builds your database from the schema.xml file.
      * The defaultExpr is the SQL expression used as the “default” for the column.
+     *
      * @var string|null
      */
     private $defaultExpr = null;
@@ -125,6 +136,7 @@ abstract class Column implements ColumnInterface
     /**
      * The list of enumerated values accepted on an ENUM column.
      * The list contains 255 values at most, separated by commas.
+     *
      * @var string|null
      */
     private $valueSet = null;
@@ -138,12 +150,14 @@ abstract class Column implements ColumnInterface
      * A lazy-loaded column is not fetched from the database by model queries.
      * Only the generated getter method for such a column issues a query to the database.
      * Useful for large column types (such as CLOB and BLOB).
+     *
      * @var bool
      */
     private $lazyLoad = false;
 
     /**
      * Column description.
+     *
      * @var string|null
      */
     private $description = null;
@@ -151,6 +165,7 @@ abstract class Column implements ColumnInterface
     /**
      * A column defined as primary string serves as default value for a __toString() method
      * in the generated Propel object.
+     *
      * @var bool
      */
     private $primaryString = false;
@@ -167,7 +182,9 @@ abstract class Column implements ColumnInterface
 
     /**
      * @param ForeignKey $foreignKey
+     *
      * @throws InvalidArgumentException
+     *
      * @return Column
      */
     final public function addForeignKey(ForeignKey $foreignKey): Column
@@ -191,12 +208,14 @@ abstract class Column implements ColumnInterface
 
     /**
      * @param string $name
+     *
      * @throws InvalidArgumentException
+     *
      * @return ForeignKey
      */
     final public function getForeignKey(string $name): ForeignKey
     {
-        if (! $this->hasForeignKey($name)) {
+        if (!$this->hasForeignKey($name)) {
             throw new InvalidArgumentException('Foreign key '.$name.' not added.');
         }
 
@@ -205,6 +224,7 @@ abstract class Column implements ColumnInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     final public function hasForeignKey(string $name): bool
@@ -215,41 +235,45 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    final public function getPhpName(): ?string
+    final public function getPhpName(): ? string
     {
         return $this->phpName;
     }
 
     /**
      * @param null|string $phpName
+     *
      * @return ColumnInterface
      */
-    final public function setPhpName(string $phpName = null): ColumnInterface
+    final public function setPhpName(string $phpName = null) : ColumnInterface
     {
         $this->phpName = $phpName;
+
         return $this;
     }
 
     /**
      * @return null|string
      */
-    final public function getTableMapName(): ?string
+    final public function getTableMapName(): ? string
     {
         return $this->tableMapName;
     }
 
     /**
      * @param null|string $tableMapName
+     *
      * @return ColumnInterface
      */
-    final public function setTableMapName(string $tableMapName = null): ColumnInterface
+    final public function setTableMapName(string $tableMapName = null) : ColumnInterface
     {
         $this->tableMapName = $tableMapName;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isPrimaryKey(): bool
     {
@@ -257,17 +281,19 @@ abstract class Column implements ColumnInterface
     }
 
     /**
-     * @param boolean $primaryKey
+     * @param bool $primaryKey
+     *
      * @return ColumnInterface
      */
     final public function setPrimaryKey(bool $primaryKey): ColumnInterface
     {
         $this->primaryKey = $primaryKey;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isRequired(): bool
     {
@@ -275,29 +301,33 @@ abstract class Column implements ColumnInterface
     }
 
     /**
-     * @param boolean $required
+     * @param bool $required
+     *
      * @return ColumnInterface
      */
     final public function setRequired(bool $required): ColumnInterface
     {
         $this->required = $required;
+
         return $this;
     }
 
     /**
      * @return null|string
      */
-    final public function getType(): ?string
+    final public function getType(): ? string
     {
         return $this->type;
     }
 
     /**
      * @param null|string $type
+     *
      * @throws \InvalidArgumentException
+     *
      * @return ColumnInterface
      */
-    final public function setType(string $type = null): ColumnInterface
+    final public function setType(string $type = null) : ColumnInterface
     {
         if ($type) {
             $available = [
@@ -346,35 +376,39 @@ abstract class Column implements ColumnInterface
     /**
      * @return null|string
      */
-    final public function getPhpType(): ?string
+    final public function getPhpType(): ? string
     {
         return $this->phpType;
     }
 
     /**
      * @param null|string $phpType
+     *
      * @return ColumnInterface
      */
-    final public function setPhpType(string $phpType = null): ColumnInterface
+    final public function setPhpType(string $phpType = null) : ColumnInterface
     {
         $this->phpType = $phpType;
+
         return $this;
     }
 
     /**
      * @return null|string
      */
-    final public function getSqlType(): ?string
+    final public function getSqlType(): ? string
     {
         return $this->sqlType;
     }
 
     /**
      * @param null|string $sqlType
+     *
      * @throws \InvalidArgumentException
+     *
      * @return ColumnInterface
      */
-    final public function setSqlType(string $sqlType = null): ColumnInterface
+    final public function setSqlType(string $sqlType = null) : ColumnInterface
     {
         if ($sqlType) {
             $available = [
@@ -406,95 +440,105 @@ abstract class Column implements ColumnInterface
     /**
      * @return int|null
      */
-    final public function getSize(): ?int
+    final public function getSize(): ? int
     {
         return $this->size;
     }
 
     /**
      * @param int|null $size
+     *
      * @return ColumnInterface
      */
-    final public function setSize(int $size = null): ColumnInterface
+    final public function setSize(int $size = null) : ColumnInterface
     {
         $this->size = $size;
+
         return $this;
     }
 
     /**
      * @return int|null
      */
-    final public function getScale(): ?int
+    final public function getScale(): ? int
     {
         return $this->scale;
     }
 
     /**
      * @param int|null $scale
+     *
      * @return ColumnInterface
      */
-    final public function setScale(int $scale = null): ColumnInterface
+    final public function setScale(int $scale = null) : ColumnInterface
     {
         $this->scale = $scale;
+
         return $this;
     }
 
     /**
      * @return null|string
      */
-    final public function getDefaultvalue(): ?string
+    final public function getDefaultvalue(): ? string
     {
         return $this->defaultvalue;
     }
 
     /**
      * @param null|string $defaultvalue
+     *
      * @return ColumnInterface
      */
-    final public function setDefaultvalue(string $defaultvalue = null): ColumnInterface
+    final public function setDefaultvalue(string $defaultvalue = null) : ColumnInterface
     {
         $this->defaultvalue = $defaultvalue;
+
         return $this;
     }
 
     /**
      * @return null|string
      */
-    final public function getDefaultExpr(): ?string
+    final public function getDefaultExpr(): ? string
     {
         return $this->defaultExpr;
     }
 
     /**
      * @param null|string $defaultExpr
+     *
      * @return ColumnInterface
      */
-    final public function setDefaultExpr(string $defaultExpr = null): ColumnInterface
+    final public function setDefaultExpr(string $defaultExpr = null) : ColumnInterface
     {
         $this->defaultExpr = $defaultExpr;
+
         return $this;
     }
 
     /**
      * @return null|string
      */
-    final public function getValueSet(): ?string
+    final public function getValueSet(): ? string
     {
         return $this->valueSet;
     }
 
     /**
      * @param null|string $valueSet
+     *
      * @return ColumnInterface
      */
-    final public function setValueSet(string $valueSet = null): ColumnInterface
+    final public function setValueSet(string $valueSet = null) : ColumnInterface
     {
         $this->valueSet = $valueSet;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isAutoIncrement(): bool
     {
@@ -502,17 +546,19 @@ abstract class Column implements ColumnInterface
     }
 
     /**
-     * @param boolean $autoIncrement
+     * @param bool $autoIncrement
+     *
      * @return ColumnInterface
      */
     final public function setAutoIncrement(bool $autoIncrement): ColumnInterface
     {
         $this->autoIncrement = $autoIncrement;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isLazyLoad(): bool
     {
@@ -520,35 +566,39 @@ abstract class Column implements ColumnInterface
     }
 
     /**
-     * @param boolean $lazyLoad
+     * @param bool $lazyLoad
+     *
      * @return ColumnInterface
      */
     final public function setLazyLoad(bool $lazyLoad): ColumnInterface
     {
         $this->lazyLoad = $lazyLoad;
+
         return $this;
     }
 
     /**
      * @return null|string
      */
-    final public function getDescription(): ?string
+    final public function getDescription(): ? string
     {
         return $this->description;
     }
 
     /**
      * @param null|string $description
+     *
      * @return ColumnInterface
      */
-    final public function setDescription(string $description = null): ColumnInterface
+    final public function setDescription(string $description = null) : ColumnInterface
     {
         $this->description = $description;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     final public function isPrimaryString(): bool
     {
@@ -556,12 +606,14 @@ abstract class Column implements ColumnInterface
     }
 
     /**
-     * @param boolean $primaryString
+     * @param bool $primaryString
+     *
      * @return ColumnInterface
      */
     final public function setPrimaryString(bool $primaryString): ColumnInterface
     {
         $this->primaryString = $primaryString;
+
         return $this;
     }
 
@@ -575,35 +627,39 @@ abstract class Column implements ColumnInterface
 
     /**
      * @param string $phpNamingMethod
+     *
      * @return ColumnInterface
      */
     final public function setPhpNamingMethod(string $phpNamingMethod): ColumnInterface
     {
         $this->phpNamingMethod = $phpNamingMethod;
+
         return $this;
     }
 
     /**
      * @return bool|string
      */
-    final public function getInheritance(): ?string
+    final public function getInheritance(): ? string
     {
         return $this->inheritance;
     }
 
     /**
      * @param bool|string $inheritance
+     *
      * @return ColumnInterface
      */
-    final public function setInheritance(string $inheritance = null): ColumnInterface
+    final public function setInheritance(string $inheritance = null) : ColumnInterface
     {
         $this->inheritance = $inheritance;
+
         return $this;
     }
 
     /**
      * @param \DOMDocument $dom
-     * @param \DOMElement $table
+     * @param \DOMElement  $table
      */
     final public function appendToXmlDocument(\DOMDocument $dom, \DOMElement $table): void
     {

@@ -37,8 +37,8 @@ class ScriptHandler extends CoreScriptHandler
      */
     public static function buildPropelSchema(Event $event): void
     {
-        $dispatcher = $event->getComposer()->getEventDispatcher();
-        $schema = new Schema();
+        $dispatcher             = $event->getComposer()->getEventDispatcher();
+        $schema                 = new Schema();
         $buildPropelSchemaEvent = new Event(self::EVENT_BUILD_PROPEL_SCHEMA, ['schema' => $schema]);
 
         $finder = (new Finder())
@@ -81,8 +81,9 @@ class ScriptHandler extends CoreScriptHandler
     }
 
     /**
-     * @param array $stmts
+     * @param array  $stmts
      * @param string $classname
+     *
      * @return Node|null
      */
     private static function findNodeByInstanceType(array $stmts, $classname)
@@ -92,6 +93,7 @@ class ScriptHandler extends CoreScriptHandler
                 return $node;
             }
         }
+
         return null;
     }
 }
